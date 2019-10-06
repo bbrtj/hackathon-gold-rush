@@ -10,14 +10,8 @@ sub end_of_turn
 {
 	my ($self, $instance) = @_;
 
-	my $miners = 0;
-	for my $worker (@{$instance->workers}) {
-		$miners += 1
-			if !defined $worker->order && $worker->position == $self->position;
-	}
-
 	# mine!
-	$instance->gold += $Game::Settings::mining->($miners);
+	$instance->gold += $Game::Settings::mining->($self->population);
 }
 
 1;

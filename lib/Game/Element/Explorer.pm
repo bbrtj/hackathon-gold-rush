@@ -72,7 +72,7 @@ sub order_explore
 	my $ret = $self->order_move($position);
 	$self->order = \&_order_explore;
 
-	return $ret;
+	return $ret || 1;
 }
 
 1;

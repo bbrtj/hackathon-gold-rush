@@ -122,8 +122,10 @@ sub _update_state
 	my ($self) = @_;
 
 	my %items = %{$self->_get_current_items};
+	my @update_order = qw(settlements explorers mines workers pseudounits);
 
-	for my $arr (values %items) {
+	for my $ord (@update_order) {
+		my $arr = $items{$ord};
 		for my $item (@$arr) {
 			$item->end_of_turn($self);
 		}
@@ -179,7 +181,7 @@ sub send_worker
 	my $worker = $self->_get_by_id(workers => $worker_id);
 	my $mine = $self->_get_by_id(mines => $mine_id);
 
-	return $worker->order_move($mine->position);
+	return $worker->order_work($mine->position);
 }
 
 sub send_explorer

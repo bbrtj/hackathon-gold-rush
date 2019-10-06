@@ -48,9 +48,8 @@ sub order_move
 		if defined $self->order;
 
 	$self->moving = $position - $self->position;
-	die \"Order doesn't have any effect"
-		if $self->moving == 0;
-	$self->order = \&_order_move;
+	$self->order = \&_order_move
+		if abs($self->moving) > 0;
 
 	return abs($self->moving);
 }

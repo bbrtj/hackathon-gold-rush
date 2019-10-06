@@ -2,29 +2,10 @@ package Game::Element::Settlement;
 
 use Modern::Perl "2018";
 use Moo;
-use MooX qw(LvalueAttribute);
-use MooX::Types::MooseLike::Base qw(Int Str);
 
 use Game::Settings;
 
 with "Game::Element::Role::Facility";
-
-has "population" => (
-	is => "rw",
-	isa => Int,
-	lvalue => 1,
-);
-
-sub serialize
-{
-	my ($self) = @_;
-
-	return {
-		id => $self->id,
-		position => $self->position,
-		population => $self->population,
-	};
-}
 
 sub train_unit
 {
