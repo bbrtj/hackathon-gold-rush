@@ -32,6 +32,14 @@ $base = get_base $state;
 is ($base->{population}, 3, "Unit trained");
 is (scalar $state->{explorers}->@*, 1, "Unit trained");
 is ($state->{gold}, 30, "Gold reduced");
+
+try {
+	send_explorer_settle($player, $explorer, 3);
+	fail("Minimum proximity not respected");
+} catch {
+	pass("Minimum proximity ok");
+};
+
 my $time = send_explorer_settle($player, $explorer, 5);
 end_turn($player) for 1 .. $time;
 

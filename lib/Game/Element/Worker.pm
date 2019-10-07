@@ -21,7 +21,7 @@ sub _order_work
 	my ($self, $instance) = @_;
 	$self->_order_move($instance);
 	if (!defined $self->order) {
-		my $mine = first { $_->position == $self->position } $instance->mines->@*;
+		my $mine = $instance->mines->find_by_pos($self->position)->[0];
 		$self->working = $mine;
 		$mine->population += 1;
 	}

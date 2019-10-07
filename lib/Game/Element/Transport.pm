@@ -20,10 +20,10 @@ sub _order_resettle
 	$self->_order_move($instance);
 	if (!defined $self->order) {
 		my $pos = $self->position;
-		my $settlement = first { $_->position == $pos } $instance->settlements->@*;
+		my $settlement = $instance->settlements->find_by_pos($pos)->[0];
 		$settlement->population += $self->population;
 		# destroy the unit
-		$instance->pseudounits([grep { $_->id ne $self->id } $instance->pseudounits->@*]);
+		$instance->remove_pseudounit($self->id);
 	}
 }
 

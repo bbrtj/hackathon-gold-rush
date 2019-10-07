@@ -8,6 +8,7 @@ use aliased "Game::Element::Worker" => "Worker";
 use aliased "Game::Element::Explorer" => "Explorer";
 use aliased "Game::Element::Mine" => "Mine";
 use aliased "Game::Element::Transport" => "Transport";
+use aliased "Game::Helpers::HashCollection" => "Collection";
 use Game::Settings;
 
 has "player_name" => (
@@ -41,51 +42,55 @@ has "gold" => (
 
 has "settlements" => (
 	is => "rw",
-	isa => ArrayRef[InstanceOf["Game::Element::Settlement"]],
-	default => sub { [Settlement->new(position => 0, population => $Game::Settings::default_population)] },
-	handles_via => "Array",
+	isa => InstanceOf["Game::Helpers::HashCollection"],
+	default => sub {
+		my $c = Collection->new(type => "Game::Element::Settlement");
+		$c->add(Settlement->new(position => 0, population => $Game::Settings::default_population));
+		return $c;
+	},
 	handles => {
-		add_settlement => "push"
+		add_settlement => "add",
+		remove_settlement => "remove",
 	}
 );
 
 has "workers" => (
 	is => "rw",
-	isa => ArrayRef[InstanceOf["Game::Element::Worker"]],
-	default => sub { [] },
-	handles_via => "Array",
+	isa => InstanceOf["Game::Helpers::HashCollection"],
+	default => sub { Collection->new(type => "Game::Element::Worker") },
 	handles => {
-		add_worker => "push"
+		add_worker => "add",
+		remove_worker => "remove",
 	}
 );
 
 has "explorers" => (
 	is => "rw",
-	isa => ArrayRef[InstanceOf["Game::Element::Explorer"]],
-	default => sub { [] },
-	handles_via => "Array",
+	isa => InstanceOf["Game::Helpers::HashCollection"],
+	default => sub { Collection->new(type => "Game::Element::Explorer") },
 	handles => {
-		add_explorer => "push"
+		add_explorer => "add",
+		remove_explorer => "remove",
 	}
 );
 
 has "mines" => (
 	is => "rw",
-	isa => ArrayRef[InstanceOf["Game::Element::Mine"]],
-	default => sub { [] },
-	handles_via => "Array",
+	isa => InstanceOf["Game::Helpers::HashCollection"],
+	default => sub { Collection->new(type => "Game::Element::Mine") },
 	handles => {
-		add_mine => "push"
+		add_mine => "add",
+		remove_mine => "remove",
 	}
 );
 
 has "pseudounits" => (
 	is => "rw",
-	isa => ArrayRef[AnyOf["Game::Element::Transport"]],
-	default => sub { [] },
-	handles_via => "Array",
+	isa => InstanceOf["Game::Helpers::HashCollection"],
+	default => sub { Collection->new(type => undef) },
 	handles => {
-		add_pseudounit => "push"
+		add_pseudounit => "add",
+		remove_pseudounit => "remove",
 	}
 );
 
@@ -109,12 +114,10 @@ sub _get_by_id
 	my ($self, $what, $id) = @_;
 	my $items = $self->_get_current_items;
 
-	for my $item ($items->{$what}->@*) {
-		if ($item->id eq $id) {
-			return $item;
-		}
-	}
-	die \"Couldn't find $what";
+	my $href = $items->{$what}->href;
+	die \"Couldn't find $what"
+		unless exists $href->{$id};
+	return $href->{$id};
 }
 
 sub _update_state
@@ -125,7 +128,7 @@ sub _update_state
 	my @update_order = qw(settlements explorers mines workers pseudounits);
 
 	for my $ord (@update_order) {
-		my $arr = $items{$ord};
+		my $arr = $items{$ord}->aref;
 		for my $item (@$arr) {
 			$item->end_of_turn($self);
 		}
@@ -234,7 +237,7 @@ sub serialize
 
 	for my $key (keys %items) {
 		if (defined $base->{$key}) {
-			my $value = $items{$key};
+			my $value = $items{$key}->aref;
 
 			for my $item (@$value) {
 				push $base->{$key}->@*, $item->serialize;

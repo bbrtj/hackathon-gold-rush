@@ -15,17 +15,17 @@ sub _order_settle
 	$self->_order_move($instance);
 	if (!defined $self->order) {
 		my $pos = $self->position;
-		my %locations = map { abs($_->position - $pos) => $_->id } $instance->settlements->@*;
-		if (defined first { $_ < $Game::Settings::settlement_min_proximity } keys %locations) {
-			my $minimum = min keys %locations;
-			my $closest = $instance->_get_by_id(settlements => $locations{$minimum});
+		my %locations = $instance->settlements->get_rel_pos_map($pos)->%*;
+		my $minimum = min keys %locations;
+		if ($minimum < $Game::Settings::settlement_min_proximity) {
+			my $closest = $instance->_get_by_id(settlements => $locations{$minimum}[0]);
 			$self->order_move($closest->position);
 		} else {
 			my $settlement = Settlement->new(position => $pos, population => 1);
 			$instance->add_settlement($settlement);
 
 			# destroy the unit
-			$instance->explorers([grep { $_->id ne $self->id } $instance->explorers->@*]);
+			$instance->remove_explorer($self->id);
 		}
 	}
 }
@@ -37,7 +37,7 @@ sub _order_explore
 	my @map = $instance->map->@*;
 	my $pos = $self->position;
 	my $is_mine = defined first { $_ == $pos } @map;
-	if ($is_mine && !defined first { $_->position == $pos } $instance->mines->@*) {
+	if ($is_mine && !scalar $instance->mines->find_by_pos($pos)->@*) {
 		my $explore_roll = rand();
 		if (1 - $explore_roll < $Game::Settings::exploring_success_rate) {
 			my $mine = Mine->new(position => $pos);
@@ -45,9 +45,9 @@ sub _order_explore
 		}
 	}
 	if (!defined $self->order) {
-		my %locations = map { abs($_->position - $pos) => $_->id } $instance->settlements->@*;
+		my %locations = $instance->settlements->get_rel_pos_map($pos)->%*;
 		my $minimum = min keys %locations;
-		my $closest = $instance->_get_by_id(settlements => $locations{$minimum});
+		my $closest = $instance->_get_by_id(settlements => $locations{$minimum}[0]);
 		$self->order_move($closest->position);
 	}
 }
@@ -56,9 +56,10 @@ sub order_settle
 {
 	my ($self, $position, $instance) = @_;
 
-	my %locations = map { abs($_->position - $position) => $_->id } $instance->settlements->@*;
+	my %locations = $instance->settlements->get_rel_pos_map($position)->%*;
+	my $minimum = min keys %locations;
 	die \"Cannot settle due to minimum proximity"
-		if defined first { $_ < $Game::Settings::settlement_min_proximity } keys %locations;
+		if $minimum < $Game::Settings::settlement_min_proximity;
 
 	my $ret = $self->order_move($position);
 	$self->order = \&_order_settle;
