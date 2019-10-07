@@ -40,6 +40,8 @@ sub generate_player_hash
 	my ($name) = @_;
 	my $id = generate_id "player", $name;
 	$state{$id} = Game::Instance->new(player_name => $name);
+	mkdir "scores";
+	open my $file, ">", "scores/$name";
 	return $id;
 }
 

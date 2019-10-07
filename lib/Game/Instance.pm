@@ -10,6 +10,7 @@ use aliased "Game::Element::Mine" => "Mine";
 use aliased "Game::Element::Transport" => "Transport";
 use aliased "Game::Helpers::HashCollection" => "Collection";
 use Game::Settings;
+use JSON qw(to_json);
 
 has "player_name" => (
 	is => "ro",
@@ -245,7 +246,20 @@ sub serialize
 		}
 	}
 
+	if (($base->{turn} + 3) % 5 == 0) {
+		$self->save_score($base);
+	}
+
 	return $base;
+}
+
+sub save_score
+{
+	my ($self, $state) = @_;
+	my $state_json = to_json $state;
+	my $name = $self->player_name;
+	open my $file, ">>", "scores/$name";
+	print $file $state_json . "\n";
 }
 
 1;
