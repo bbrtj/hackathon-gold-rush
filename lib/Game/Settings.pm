@@ -2,7 +2,7 @@ package Game::Settings;
 
 use Modern::Perl "2018";
 
-our $game_length = 25_000;
+our $game_length = 4000;
 
 our $default_gold = 50;
 our $default_population = 3;
