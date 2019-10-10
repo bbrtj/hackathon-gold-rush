@@ -9,6 +9,7 @@ use GoldRush;
 
 builder {
 	enable "TrailingSlashKiller", redirect => 1;
-	GoldRush->to_app;
+	mount(GoldRush->websocket_mount);
+	mount '/' => GoldRush->to_app;
 };
 

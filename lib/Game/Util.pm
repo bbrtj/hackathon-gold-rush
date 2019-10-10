@@ -2,7 +2,6 @@ package Game::Util;
 
 use Modern::Perl "2018";
 use Exporter qw(import);
-use Time::HiRes qw(time);
 use Digest::SHA qw(sha1_hex);
 
 our @EXPORT_OK = qw(
@@ -12,8 +11,15 @@ our @EXPORT_OK = qw(
 
 sub generate_id
 {
-	my $data = join "::", @_, rand, time;
-	return sha1_hex($data);
+	my ($type) = @_;
+	state $last = 1;
+	if ($type eq "player") {
+		my $data = join "::", @_;
+		return substr sha1_hex($data), 0, 10;
+	}
+	if ($type eq "element") {
+		return sprintf "%x", $last++;
+	}
 }
 
 sub parameter_checks
@@ -24,8 +30,8 @@ sub parameter_checks
 				if $_[0] < 0;
 		},
 		count => sub {
-			die \"Count must be non-negative"
-				if $_[0] < 0;
+			die \"Count must be positive"
+				unless $_[0] > 0;
 		},
 	};
 }

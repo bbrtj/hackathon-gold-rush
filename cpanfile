@@ -12,3 +12,4 @@ requires "Try::Tiny";
 requires "Plack";
 requires "Dancer2";
 requires "Twiggy";
+requires "Dancer2::Plugin::WebSocket";

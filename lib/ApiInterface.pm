@@ -5,21 +5,30 @@ use Dancer2 appname => "GoldRush";
 use Exporter qw(import);
 use Try::Tiny;
 
-our @EXPORT_OK = qw(api_call assert_params);
+our @EXPORT_OK = qw(trap_errors api_call assert_params);
+
+sub trap_errors
+{
+	my ($sub, @params) = @_;
+	my $status;
+
+	try {
+		my $ret = $sub->(@params);
+		$status = {status => true, result => $ret};
+	} catch {
+		my $code = $_;
+		$code = $$code
+			if ref $code eq ref \1;
+		$status = {status => false, error => $code};
+	};
+	return $status;
+}
 
 sub api_call
 {
 	my ($sub) = @_;
 	my $subsub = sub {
-		try {
-			my $ret = $sub->(scalar params);
-			return encode_json({status => true, result => $ret});
-		} catch {
-			my $code = $_;
-			$code = $$code
-				if ref $code eq ref \1;
-			return encode_json({status => false, error => $code});
-		};
+		return encode_json(trap_errors $sub, scalar params);
 	};
 
 	return $subsub;
