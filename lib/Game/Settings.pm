@@ -19,8 +19,8 @@ our $population_growth = sub {
 	return int(100 / (-$pop - 18.1) + 5 + 0.9999);
 };
 
-my $mining_rate = 1;
-my $mining_step = 100;
+my $mining_rate = 0.5;
+my $mining_step = 10;
 my $mining_drop = 0.8;
 our $mining = sub {
 	my ($miners) = @_;
