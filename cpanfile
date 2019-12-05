@@ -8,6 +8,7 @@ requires "Modern::Perl";
 requires "aliased";
 requires "Test::More";
 requires "Try::Tiny";
+requires "File::BaseName";
 
 requires "Plack";
 requires "Dancer2";

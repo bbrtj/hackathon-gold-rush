@@ -1,22 +1,21 @@
-# Zasady
+# Rules
 Gra odbywa się na jednowymiarowej planszy o skończonych rozmiarach. Pozycja na mapie jest oznaczana jedną liczbą naturalną. Na mapie znajdują się złoża złota, których położenie nie jest znane graczom. Liczba tych złóż jest ograniczona. Gra toczy się w systemie turowym, gracz po skończeniu działań sam decyduje kiedy chce przejść do kolejnej tury. Gracze mają oddzielne, własne plansze.
 
-Gracz rozpoczyna grę z następującą pulą zasobów:
+A player starts the game with the following resources:
 
-- Jedna osada (settlement) na pozycji 0 z populacją 3
-- 50 jednostek złota (JZ)
+- one settlement on position 0 with population 3
+- 50 gold pieces (GP)
 
-Celem gry jest rozrost infrastruktury i zdobywanie złota poprzez zajmowanie terenu oraz szkolenie jednostek. Dostępne typy jednostek to:
+Game's goal is building the infrastructure and earning gold by taking land and training units. Available unit types are:
 
-- Odkrywca (explorer), który może odkrywać teren oraz zakładać nowe osady
-- Robotnik (worker), który wydobywa złoto
+- an explorer, who can discover new land and start settlements
+- a worker, who mines gold
 
 Szkolenie nowych jednostek wymaga zmniejszenia populacji osady o 1 oraz wydania określonej kwoty w złocie. Cena odkrywcy to 20 JZ, a robotnika to 10 JZ. Szkolenie jest natychmiastowe i nowa jednostka może być użyta jeszcze w tej samej turze.
 
 Przyrost populacji w osadach odbywa się automatycznie. Każda osada, która posiada przynajmniej 2 jednostki populacji będzie co 3 tury otrzymywać dodatkową populację. Wzór na wzrost populacji x jest następujący: `ceil(100 / (-x - 18.1) + 5)`
 
-
-Każda jednostka porusza się z prędkością 1 / turę.
+Every unit's movement rate is 1 / turn.
 
 Odkrywca może zostać wysłany w celu zbadania terenu (`send_explorer`). Przy przechodzeniu przez każdą jednostkę ma 40% szansy na wykrycie znajdującego się tam złoża złota. Po wykryciu zakłada tam kopalnię, która następnie może być zasiedlona przez robotników. Po osiągnięciu końca ekspedycji odkrywca wraca do najbliższej osady.
 

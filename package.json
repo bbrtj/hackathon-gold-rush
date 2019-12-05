@@ -1,0 +1,27 @@
+{
+  "name": "hackaton",
+  "version": "1.0.0",
+  "description": "Gold Rush - a game server for a hackaton-like event",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brtastic/GoldRush.git"
+  },
+  "author": "brtastic",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brtastic/GoldRush/issues"
+  },
+  "homepage": "https://github.com/brtastic/GoldRush#readme",
+  "dependencies": {
+    "highcharts": "^7.2.0",
+    "vue": "^2.6.10",
+    "webpack": "^4.41.0"
+  }
+}
