@@ -2,9 +2,6 @@
 
 use Modern::Perl "2018";
 
-use File::Basename;
-use Plack::Builder;
-use lib dirname(__FILE__) . "/lib";
 use Test::More;
 use Try::Tiny;
 use List::Util qw(first);
@@ -126,6 +123,6 @@ is(get_worker($state)->{working}, 1, "Worker is working");
 
 end_turn($player);
 $state = get_state($player);
-is ($state->{gold}, 1, "Gold is being extracted");
+is ($state->{gold}, 0.5, "Gold is being extracted");
 
 done_testing;
