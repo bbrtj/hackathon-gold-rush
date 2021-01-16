@@ -1,5 +1,6 @@
 package Game::Instance;
 
+use Modern::Perl "2018";
 use Moo;
 use MooX qw(HandlesVia LvalueAttribute);
 use Types::Standard qw(Int Num Str ArrayRef HashRef InstanceOf);
