@@ -8,6 +8,17 @@ use ApiInterface qw(trap_errors assert_params);
 
 my %conn_players;
 
+my %types = (
+	end_turn => [\&end_turn, qw(player)],
+	train_worker => [\&train_worker, qw(player settlement)],
+	train_explorer => [\&train_explorer, qw(player settlement)],
+	send_worker => [\&send_worker, qw(player worker mine)],
+	send_explorer => [\&send_explorer, qw(player explorer position)],
+	send_explorer_settle => [\&send_explorer_settle, qw(player explorer position)],
+	resettle => [\&resettle, qw(player count settlement_from settlement_to)],
+	get_state => [\&get_state, qw(player)],
+);
+
 websocket_on_message sub {
 	my ($conn, $params) = @_;
 	my $type = $params->{type};
@@ -21,23 +32,13 @@ websocket_on_message sub {
 			if $result->{status};
 	} else {
 		$params->{player} = $conn_players{$conn->id};
-		if ($type eq q<end_turn>) {
-			$result = trap_errors \&end_turn, assert_params $params, qw(player);
-		} elsif ($type eq q<train_worker>) {
-			$result = trap_errors \&train_worker, assert_params $params, qw(player settlement);
-		} elsif ($type eq q<train_explorer>) {
-			$result = trap_errors \&train_explorer, assert_params $params, qw(player settlement);
-		} elsif ($type eq q<send_worker>) {
-			$result = trap_errors \&send_worker, assert_params $params, qw(player worker mine);
-		} elsif ($type eq q<send_explorer>) {
-			$result = trap_errors \&send_explorer, assert_params $params, qw(player explorer position);
-		} elsif ($type eq q<send_explorer_settle>) {
-			$result = trap_errors \&send_explorer_settle, assert_params $params, qw(player explorer position);
-		} elsif ($type eq q<resettle>) {
-			$result = trap_errors \&resettle, assert_params $params, qw(player count settlement_from settlement_to);
-		} elsif ($type eq q<get_state>) {
-			$result = trap_errors \&get_state, assert_params $params, qw(player);
-		} else {
+
+		if (exists $types{$type}) {
+			my $code_params = $types{$type};
+			my $code_ref = shift $code_params->@*;
+			$result = trap_errors $code_ref, assert_params $params, $code_params->@*;
+		}
+		else {
 			$result = trap_errors sub { die \"Unknown request type"; };
 		}
 	}
