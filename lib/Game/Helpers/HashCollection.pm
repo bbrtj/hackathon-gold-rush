@@ -2,7 +2,7 @@ package Game::Helpers::HashCollection;
 
 use Modern::Perl "2018";
 use Moo;
-use MooX::Types::MooseLike::Base qw(Maybe HashRef ConsumerOf Str ArrayRef);
+use Types::Standard qw(Maybe HashRef ConsumerOf Str ArrayRef);
 
 has "type" => (
 	is => "ro",

@@ -3,7 +3,7 @@ package Game::Element::Worker;
 use Modern::Perl "2018";
 use Moo;
 use MooX qw(LvalueAttribute);
-use MooX::Types::MooseLike::Base qw(Maybe InstanceOf);
+use Types::Standard qw(Maybe InstanceOf);
 use List::Util qw(first);
 
 use Game::Element::Mine;

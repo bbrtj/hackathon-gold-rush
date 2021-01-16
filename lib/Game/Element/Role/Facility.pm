@@ -3,7 +3,7 @@ package Game::Element::Role::Facility;
 use Modern::Perl "2018";
 use Moo::Role;
 use MooX::Role qw(LvalueAttribute);
-use MooX::Types::MooseLike::Base qw(Int Str);
+use Types::Standard qw(Int Str);
 
 with "Game::Element::Role::Element";
 

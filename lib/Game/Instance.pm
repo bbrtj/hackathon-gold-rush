@@ -2,7 +2,7 @@ package Game::Instance;
 
 use Moo;
 use MooX qw(HandlesVia LvalueAttribute);
-use MooX::Types::MooseLike::Base qw(Int Num Str ArrayRef HashRef InstanceOf AnyOf);
+use Types::Standard qw(Int Num Str ArrayRef HashRef InstanceOf);
 use aliased "Game::Element::Settlement" => "Settlement";
 use aliased "Game::Element::Worker" => "Worker";
 use aliased "Game::Element::Explorer" => "Explorer";

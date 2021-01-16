@@ -3,7 +3,7 @@ package Game::Element::Transport;
 use Modern::Perl "2018";
 use Moo;
 use MooX qw(LvalueAttribute);
-use MooX::Types::MooseLike::Base qw(Int);
+use Types::Standard qw(Int);
 use List::Util qw(first);
 
 with "Game::Element::Role::Unit";
