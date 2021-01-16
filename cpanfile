@@ -6,7 +6,6 @@ requires "MooX::Types::MooseLike";
 
 requires "Modern::Perl";
 requires "aliased";
-requires "Test::More";
 requires "Try::Tiny";
 
 requires "Plack";
