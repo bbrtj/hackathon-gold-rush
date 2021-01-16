@@ -15,7 +15,7 @@ sub trap_errors
 	try {
 		my $ret = $sub->(@params);
 		$status = {status => true, result => $ret};
-	} catch ($code); {
+	} catch ($code) {
 		$code = $$code
 			if ref $code eq ref \1;
 		$status = {status => false, error => $code};
