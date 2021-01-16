@@ -3,7 +3,7 @@
 use Modern::Perl "2018";
 
 use Test::More;
-use Try::Tiny;
+use Syntax::Keyword::Try;
 use List::Util qw(first);
 
 use Game::Engine qw(:all);
@@ -35,7 +35,7 @@ try {
 	fail("Minimum proximity not respected");
 } catch {
 	pass("Minimum proximity ok");
-};
+}
 
 my $time = send_explorer_settle($player, $explorer, 5);
 end_turn($player) for 1 .. $time;

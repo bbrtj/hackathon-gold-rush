@@ -3,7 +3,7 @@ package ApiInterface;
 use Modern::Perl "2018";
 use Dancer2 appname => "GoldRush";
 use Exporter qw(import);
-use Try::Tiny;
+use Syntax::Keyword::Try;
 
 our @EXPORT_OK = qw(trap_errors api_call assert_params);
 
@@ -15,12 +15,11 @@ sub trap_errors
 	try {
 		my $ret = $sub->(@params);
 		$status = {status => true, result => $ret};
-	} catch {
-		my $code = $_;
+	} catch ($code); {
 		$code = $$code
 			if ref $code eq ref \1;
 		$status = {status => false, error => $code};
-	};
+	}
 	return $status;
 }
 

@@ -1435,6 +1435,14 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
+  Syntax-Keyword-Try-0.20
+    pathname: P/PE/PEVANS/Syntax-Keyword-Try-0.20.tar.gz
+    provides:
+      Syntax::Keyword::Try 0.20
+    requirements:
+      ExtUtils::CBuilder 0
+      Module::Build 0.4004
+      perl 5.014
   Template-Tiny-1.12
     pathname: A/AD/ADAMK/Template-Tiny-1.12.tar.gz
     provides:
