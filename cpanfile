@@ -13,3 +13,10 @@ requires "Kelp::Module::WebSocket::AnyEvent";
 requires "Twiggy";
 
 requires "CryptX";
+
+recommends "Cpanel::JSON::XS";
+
+on test => sub {
+	requires "Test::TCP";
+	requires "AnyEvent::WebSocket::Client";
+};
