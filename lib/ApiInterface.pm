@@ -1,7 +1,6 @@
 package ApiInterface;
 
 use Modern::Perl "2018";
-use Dancer2 appname => "GoldRush";
 use Exporter qw(import);
 use Syntax::Keyword::Try;
 
@@ -14,11 +13,11 @@ sub trap_errors
 
 	try {
 		my $ret = $sub->(@params);
-		$status = {status => true, result => $ret};
+		$status = {status => \1, result => $ret};
 	} catch ($code) {
 		$code = $$code
 			if ref $code eq ref \1;
-		$status = {status => false, error => $code};
+		$status = {status => \0, error => $code};
 	}
 	return $status;
 }
@@ -27,7 +26,8 @@ sub api_call
 {
 	my ($sub) = @_;
 	my $subsub = sub {
-		return encode_json(trap_errors $sub, scalar params);
+		my ($kelp) = @_;
+		return encode_json(trap_errors $sub, $kelp->query_parameters);
 	};
 
 	return $subsub;

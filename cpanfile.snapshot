@@ -159,6 +159,24 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       Test::More 0
       perl 5.008008
+  B-Hooks-EndOfScope-0.24
+    pathname: E/ET/ETHER/B-Hooks-EndOfScope-0.24.tar.gz
+    provides:
+      B::Hooks::EndOfScope 0.24
+      B::Hooks::EndOfScope::PP 0.24
+      B::Hooks::EndOfScope::XS 0.24
+    requirements:
+      ExtUtils::MakeMaker 0
+      Hash::Util::FieldHash 0
+      Module::Implementation 0.05
+      Scalar::Util 0
+      Sub::Exporter::Progressive 0.001006
+      Text::ParseWords 0
+      Tie::Hash 0
+      Variable::Magic 0.48
+      perl 5.006001
+      strict 0
+      warnings 0
   B-Hooks-OP-Check-0.22
     pathname: E/ET/ETHER/B-Hooks-OP-Check-0.22.tar.gz
     provides:
@@ -502,6 +520,19 @@ DISTRIBUTIONS
       Encode::Alias 0
       ExtUtils::MakeMaker 0
       perl 5.008
+  Eval-Closure-0.14
+    pathname: D/DO/DOY/Eval-Closure-0.14.tar.gz
+    provides:
+      Eval::Closure 0.14
+    requirements:
+      Carp 0
+      Exporter 0
+      ExtUtils::MakeMaker 0
+      Scalar::Util 0
+      constant 0
+      overload 0
+      strict 0
+      warnings 0
   Exception-Class-1.44
     pathname: D/DR/DROLSKY/Exception-Class-1.44.tar.gz
     provides:
@@ -660,6 +691,21 @@ DISTRIBUTIONS
       HTML::Tagset 3.20
     requirements:
       ExtUtils::MakeMaker 0
+  HTTP-Cookies-6.10
+    pathname: O/OA/OALDERS/HTTP-Cookies-6.10.tar.gz
+    provides:
+      HTTP::Cookies 6.10
+      HTTP::Cookies::Microsoft 6.10
+      HTTP::Cookies::Netscape 6.10
+    requirements:
+      Carp 0
+      ExtUtils::MakeMaker 0
+      HTTP::Date 6
+      HTTP::Headers::Util 6
+      HTTP::Request 0
+      locale 0
+      perl 5.008001
+      strict 0
   HTTP-Date-6.05
     pathname: O/OA/OALDERS/HTTP-Date-6.05.tar.gz
     provides:
@@ -807,6 +853,14 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
+  JSON-4.02
+    pathname: I/IS/ISHIGAKI/JSON-4.02.tar.gz
+    provides:
+      JSON 4.02
+      JSON::Backend::PP 4.02
+    requirements:
+      ExtUtils::MakeMaker 0
+      Test::More 0
   JSON-MaybeXS-1.004003
     pathname: E/ET/ETHER/JSON-MaybeXS-1.004003.tar.gz
     provides:
@@ -818,6 +872,81 @@ DISTRIBUTIONS
       JSON::PP 2.27300
       Scalar::Util 0
       perl 5.006
+  Kelp-1.03
+    pathname: B/BR/BRTASTIC/Kelp-1.03.tar.gz
+    provides:
+      Kelp 1.03
+      Kelp::Base undef
+      Kelp::Less undef
+      Kelp::Module undef
+      Kelp::Module::Config undef
+      Kelp::Module::Config::Less undef
+      Kelp::Module::Config::Null undef
+      Kelp::Module::JSON undef
+      Kelp::Module::Logger undef
+      Kelp::Module::Logger::Simple undef
+      Kelp::Module::Null undef
+      Kelp::Module::Routes undef
+      Kelp::Module::Template undef
+      Kelp::Module::Template::Null undef
+      Kelp::Request undef
+      Kelp::Response undef
+      Kelp::Routes undef
+      Kelp::Routes::Controller undef
+      Kelp::Routes::Pattern undef
+      Kelp::Template undef
+      Kelp::Test undef
+    requirements:
+      Carp 0
+      Class::Inspector 0
+      Data::Dumper 0
+      Encode 0
+      ExtUtils::MakeMaker 0
+      File::Basename 0
+      File::Path 0
+      FindBin 0
+      Getopt::Long 0
+      HTTP::Cookies 0
+      JSON 0
+      Log::Dispatch 0
+      Path::Tiny 0
+      Plack::Test 0
+      Plack::Util 0
+      Scalar::Util 0
+      Sys::Hostname 0
+      Template::Tiny 0
+      Test::Deep 0
+      Test::More 0
+      Try::Tiny 0
+      feature 0
+      namespace::autoclean 0
+      perl 5.010000
+      strict 0
+      warnings 0
+  Kelp-Module-Symbiosis-1.10
+    pathname: B/BR/BRTASTIC/Kelp-Module-Symbiosis-1.10.tar.gz
+    provides:
+      Kelp::Module::Symbiosis 1.10
+      Kelp::Module::Symbiosis::Base 1.10
+      Kelp::Module::Symbiosis::Test 1.10
+      KelpX::Symbiosis::Test 1.10
+    requirements:
+      ExtUtils::MakeMaker 0
+      Kelp 0
+      Plack 0
+      perl 5.010
+  Kelp-Module-WebSocket-AnyEvent-1.03
+    pathname: B/BR/BRTASTIC/Kelp-Module-WebSocket-AnyEvent-1.03.tar.gz
+    provides:
+      Kelp::Module::WebSocket::AnyEvent 1.03
+      Kelp::Module::WebSocket::AnyEvent::Connection 1.03
+    requirements:
+      ExtUtils::MakeMaker 0
+      Kelp 0
+      Kelp::Module::Symbiosis 0
+      Plack::App::WebSocket 0
+      Try::Tiny 0
+      perl 5.010
   LWP-MediaTypes-6.04
     pathname: O/OA/OALDERS/LWP-MediaTypes-6.04.tar.gz
     provides:
@@ -853,6 +982,60 @@ DISTRIBUTIONS
       IPC::Cmd 0
       XSLoader 0.22
       base 0
+  Log-Dispatch-2.70
+    pathname: D/DR/DROLSKY/Log-Dispatch-2.70.tar.gz
+    provides:
+      Log::Dispatch 2.70
+      Log::Dispatch::ApacheLog 2.70
+      Log::Dispatch::Base 2.70
+      Log::Dispatch::Code 2.70
+      Log::Dispatch::Email 2.70
+      Log::Dispatch::Email::MIMELite 2.70
+      Log::Dispatch::Email::MailSend 2.70
+      Log::Dispatch::Email::MailSender 2.70
+      Log::Dispatch::Email::MailSendmail 2.70
+      Log::Dispatch::File 2.70
+      Log::Dispatch::File::Locked 2.70
+      Log::Dispatch::Handle 2.70
+      Log::Dispatch::Null 2.70
+      Log::Dispatch::Output 2.70
+      Log::Dispatch::Screen 2.70
+      Log::Dispatch::Syslog 2.70
+      Log::Dispatch::Types 2.70
+      Log::Dispatch::Vars 2.70
+    requirements:
+      Carp 0
+      Devel::GlobalDestruction 0
+      Dist::CheckConflicts 0.02
+      Encode 0
+      Exporter 0
+      ExtUtils::MakeMaker 0
+      Fcntl 0
+      IO::Handle 0
+      Module::Runtime 0
+      Params::ValidationCompiler 0
+      Scalar::Util 0
+      Specio 0.32
+      Specio::Declare 0
+      Specio::Exporter 0
+      Specio::Library::Builtins 0
+      Specio::Library::Numeric 0
+      Specio::Library::String 0
+      Sys::Syslog 0.28
+      Try::Tiny 0
+      base 0
+      namespace::autoclean 0
+      parent 0
+      perl 5.006
+      strict 0
+      warnings 0
+  MRO-Compat-0.13
+    pathname: H/HA/HAARG/MRO-Compat-0.13.tar.gz
+    provides:
+      MRO::Compat 0.13
+    requirements:
+      ExtUtils::MakeMaker 0
+      perl 5.006
   Modern-Perl-1.20200211
     pathname: C/CH/CHROMATIC/Modern-Perl-1.20200211.tar.gz
     provides:
@@ -1149,6 +1332,50 @@ DISTRIBUTIONS
       strict 0
       vars 0
       warnings 0
+  Params-ValidationCompiler-0.30
+    pathname: D/DR/DROLSKY/Params-ValidationCompiler-0.30.tar.gz
+    provides:
+      Params::ValidationCompiler 0.30
+      Params::ValidationCompiler::Compiler 0.30
+      Params::ValidationCompiler::Exceptions 0.30
+    requirements:
+      B 0
+      Carp 0
+      Eval::Closure 0
+      Exception::Class 0
+      Exporter 0
+      ExtUtils::MakeMaker 0
+      List::Util 1.29
+      Scalar::Util 0
+      overload 0
+      strict 0
+      warnings 0
+  Path-Tiny-0.114
+    pathname: D/DA/DAGOLDEN/Path-Tiny-0.114.tar.gz
+    provides:
+      Path::Tiny 0.114
+      Path::Tiny::Error 0.114
+    requirements:
+      Carp 0
+      Cwd 0
+      Digest 1.03
+      Digest::SHA 5.45
+      Encode 0
+      Exporter 5.57
+      ExtUtils::MakeMaker 6.17
+      Fcntl 0
+      File::Copy 0
+      File::Glob 0
+      File::Path 2.07
+      File::Spec 0.86
+      File::Temp 0.19
+      File::stat 0
+      constant 0
+      overload 0
+      perl 5.008001
+      strict 0
+      warnings 0
+      warnings::register 0
   PerlX-Maybe-1.201
     pathname: T/TO/TOBYINK/PerlX-Maybe-1.201.tar.gz
     provides:
@@ -1365,6 +1592,76 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       Test::More 0
+  Specio-0.46
+    pathname: D/DR/DROLSKY/Specio-0.46.tar.gz
+    provides:
+      Specio 0.46
+      Specio::Coercion 0.46
+      Specio::Constraint::AnyCan 0.46
+      Specio::Constraint::AnyDoes 0.46
+      Specio::Constraint::AnyIsa 0.46
+      Specio::Constraint::Enum 0.46
+      Specio::Constraint::Intersection 0.46
+      Specio::Constraint::ObjectCan 0.46
+      Specio::Constraint::ObjectDoes 0.46
+      Specio::Constraint::ObjectIsa 0.46
+      Specio::Constraint::Parameterizable 0.46
+      Specio::Constraint::Parameterized 0.46
+      Specio::Constraint::Role::CanType 0.46
+      Specio::Constraint::Role::DoesType 0.46
+      Specio::Constraint::Role::Interface 0.46
+      Specio::Constraint::Role::IsaType 0.46
+      Specio::Constraint::Simple 0.46
+      Specio::Constraint::Structurable 0.46
+      Specio::Constraint::Structured 0.46
+      Specio::Constraint::Union 0.46
+      Specio::Declare 0.46
+      Specio::DeclaredAt 0.46
+      Specio::Exception 0.46
+      Specio::Exporter 0.46
+      Specio::Helpers 0.46
+      Specio::Library::Builtins 0.46
+      Specio::Library::Numeric 0.46
+      Specio::Library::Perl 0.46
+      Specio::Library::String 0.46
+      Specio::Library::Structured 0.46
+      Specio::Library::Structured::Dict 0.46
+      Specio::Library::Structured::Map 0.46
+      Specio::Library::Structured::Tuple 0.46
+      Specio::OO 0.46
+      Specio::PartialDump 0.46
+      Specio::Registry 0.46
+      Specio::Role::Inlinable 0.46
+      Specio::Subs 0.46
+      Specio::TypeChecks 0.46
+      Test::Specio 0.46
+    requirements:
+      B 0
+      Carp 0
+      Devel::StackTrace 0
+      Eval::Closure 0
+      Exporter 0
+      ExtUtils::MakeMaker 0
+      IO::File 0
+      List::Util 1.33
+      MRO::Compat 0
+      Module::Runtime 0
+      Role::Tiny 1.003003
+      Role::Tiny::With 0
+      Scalar::Util 0
+      Storable 0
+      Sub::Quote 0
+      Test::Fatal 0
+      Test::More 0.96
+      Try::Tiny 0
+      XString 0
+      overload 0
+      parent 0
+      perl 5.008
+      re 0
+      strict 0
+      version 0.83
+      warnings 0
   Stream-Buffered-0.03
     pathname: D/DO/DOY/Stream-Buffered-0.03.tar.gz
     provides:
@@ -1404,6 +1701,13 @@ DISTRIBUTIONS
       Sub::Exporter::Progressive 0.001013
     requirements:
       ExtUtils::MakeMaker 0
+  Sub-Identify-0.14
+    pathname: R/RG/RGARCIA/Sub-Identify-0.14.tar.gz
+    provides:
+      Sub::Identify 0.14
+    requirements:
+      ExtUtils::MakeMaker 0
+      Test::More 0
   Sub-Install-0.928
     pathname: R/RJ/RJBS/Sub-Install-0.928.tar.gz
     provides:
@@ -1606,6 +1910,18 @@ DISTRIBUTIONS
       Test::Harness 2.03
       base 0
       perl 5.006001
+      strict 0
+      warnings 0
+  Test-Fatal-0.016
+    pathname: R/RJ/RJBS/Test-Fatal-0.016.tar.gz
+    provides:
+      Test::Fatal 0.016
+    requirements:
+      Carp 0
+      Exporter 5.57
+      ExtUtils::MakeMaker 0
+      Test::Builder 0
+      Try::Tiny 0.07
       strict 0
       warnings 0
   Test-Most-0.37
@@ -1894,6 +2210,13 @@ DISTRIBUTIONS
       Exporter 0
       Module::Build 0.4005
       perl 5.008001
+  XString-0.005
+    pathname: A/AT/ATOOMIC/XString-0.005.tar.gz
+    provides:
+      XString 0.005
+    requirements:
+      ExtUtils::MakeMaker 0
+      perl 5.008
   YAML-1.30
     pathname: T/TI/TINITA/YAML-1.30.tar.gz
     provides:
@@ -1980,6 +2303,28 @@ DISTRIBUTIONS
       perl 5.008001
       strict 0
       warnings 0
+  namespace-autoclean-0.29
+    pathname: E/ET/ETHER/namespace-autoclean-0.29.tar.gz
+    provides:
+      namespace::autoclean 0.29
+    requirements:
+      B::Hooks::EndOfScope 0.12
+      ExtUtils::MakeMaker 0
+      List::Util 0
+      Sub::Identify 0
+      namespace::clean 0.20
+      perl 5.006
+      strict 0
+      warnings 0
+  namespace-clean-0.27
+    pathname: R/RI/RIBASUSHI/namespace-clean-0.27.tar.gz
+    provides:
+      namespace::clean 0.27
+    requirements:
+      B::Hooks::EndOfScope 0.12
+      ExtUtils::MakeMaker 0
+      Package::Stash 0.23
+      perl 5.008001
   strictures-2.000006
     pathname: H/HA/HAARG/strictures-2.000006.tar.gz
     provides:

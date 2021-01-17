@@ -8,7 +8,6 @@ requires "aliased";
 requires "Syntax::Keyword::Try";
 requires "Type::Tiny";
 
-requires "Plack";
-requires "Dancer2";
+requires "Kelp";
+requires "Kelp::Module::WebSocket::AnyEvent";
 requires "Twiggy";
-requires "Dancer2::Plugin::WebSocket";

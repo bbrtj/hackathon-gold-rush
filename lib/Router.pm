@@ -1,59 +1,71 @@
 package Router;
 
 use Modern::Perl "2018";
-use Dancer2 appname => "GoldRush";
 use Game::Engine qw(:all);
-use ApiInterface qw(api_call assert_params);
+use ApiInterface qw(api_call assert_params trap_errors);
 
-prefix undef;
+my %types = (
+	new_player => [\&generate_player_hash, [qw(name)]],
+	end_turn => [\&end_turn, [qw(player)]],
+	train_worker => [\&train_worker, [qw(player settlement)]],
+	train_explorer => [\&train_explorer, [qw(player settlement)]],
+	send_worker => [\&send_worker, [qw(player worker mine)]],
+	send_explorer => [\&send_explorer, [qw(player explorer position)]],
+	send_explorer_settle => [\&send_explorer_settle, [qw(player explorer position)]],
+	resettle => [\&resettle, [qw(player count settlement_from settlement_to)]],
+	get_state => [\&get_state, [qw(player)]],
+);
 
-get q</new_player> => api_call sub {
-	my ($params) = @_;
-	return generate_player_hash assert_params $params, qw(name);
-};
+sub install_routes
+{
+	my ($kelp) = @_;
 
-get q</end_turn> => api_call sub {
-	my ($params) = @_;
-	return end_turn assert_params $params, qw(player);
-};
 
-get q</train_worker> => api_call sub {
-	my ($params) = @_;
-	return train_worker assert_params $params, qw(player settlement);
-};
+	### API ###
 
-get q</train_explorer> => api_call sub {
-	my ($params) = @_;
-	return train_explorer assert_params $params, qw(player settlement);
-};
+	my $r = $kelp->routes;
 
-get q</send_worker> => api_call sub {
-	my ($params) = @_;
-	return send_worker assert_params $params, qw(player worker mine);
-};
+	for my $type (keys %types) {
+		my ($code_ref, $params_ref) = $types{$type}->@*;
+		$r->add('/' . $type => {
+			to => api_call sub {
+				my ($params) = @_;
+				return $code_ref->(assert_params $params, @{$params_ref});
+			},
+		});
+	}
 
-get q</send_explorer> => api_call sub {
-	my ($params) = @_;
-	return send_explorer assert_params $params, qw(player explorer position);
-};
+	$r->add('/results' => sub {
+		# TODO
+	});
 
-get q</send_explorer_settle> => api_call sub {
-	my ($params) = @_;
-	return send_explorer_settle assert_params $params, qw(player explorer position);
-};
 
-get q</resettle> => api_call sub {
-	my ($params) = @_;
-	return resettle assert_params $params, qw(player count settlement_from settlement_to);
-};
+	### WebSocket ###
 
-get q</get_state> => api_call sub {
-	my ($params) = @_;
-	return get_state assert_params $params, qw(player);
-};
+	my $ws = $kelp->websocket;
 
-get q</results> => sub {
-  # TODO
-};
+	$ws->add(message => sub {
+		my ($conn, $params) = @_;
+
+		my $result;
+		$params->{player} = $conn->data->{player};
+
+		my $type = $params->{type};
+		if ($type && exists $types{$type}) {
+			my ($code_ref, $params_ref) = $types{$type}->@*;
+			$result = trap_errors sub { $code_ref->(assert_params $params, $params_ref->@*) };
+
+			# special case - set websocket connection player
+			$conn->data->{player} = $result->{result}
+				if $type eq q<new_player> && $result->{status};
+		}
+		else {
+			$result = trap_errors sub { die \"Unknown request type"; };
+		}
+
+		$conn->send($result);
+	});
+
+}
 
 1;
