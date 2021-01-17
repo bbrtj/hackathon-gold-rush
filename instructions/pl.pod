@@ -4,11 +4,13 @@
 
 =head1 Zasady
 
-Gra odbywa się na jednowymiarowej planszy o skończonych rozmiarach. Pozycja na
+Gra odbywa się na jednowymiarowej mapie o skończonych rozmiarach. Pozycja na
 mapie jest oznaczana jedną liczbą naturalną. Na mapie znajdują się złoża złota,
 których położenie nie jest znane graczom. Liczba tych złóż jest ograniczona.
-Gra toczy się w systemie turowym, gracz po skończeniu działań sam decyduje
-kiedy chce przejść do kolejnej tury. Gracze mają oddzielne, własne plansze.
+Gra toczy się w systemie turowym - gracz po skończeniu działań może zdecydować
+aby przejść do kolejnej tury, co powoduje postęp wszystkich akcji w czasie.
+Gracze mają oddzielne, własne plansze i nie jest możliwa żadna interakcja
+między nimi.
 
 Gracz rozpoczyna grę z następującą pulą atutów:
 
@@ -16,11 +18,11 @@ Gracz rozpoczyna grę z następującą pulą atutów:
 
 =item
 
-Jedna osada (settlement) na pozycji 0 z populacją 3
+Jedna osada (settlement) na pozycji C<0> z populacją C<3>
 
 =item
 
-50 jednostek złota (JZ)
+C<50> jednostek złota (JZ)
 
 =back
 
@@ -40,47 +42,49 @@ Robotnik (worker), który wydobywa złoto
 =back
 
 Szkolenie nowych jednostek wymaga zmniejszenia populacji osady o 1 oraz wydania
-określonej kwoty w złocie. Cena odkrywcy to 20 JZ, a robotnika to 10 JZ.
-Szkolenie jest natychmiastowe i nowa jednostka może być użyta jeszcze w tej
-samej turze.
+określonej kwoty w złocie.  Szkolenie jest natychmiastowe i nowa jednostka może
+być użyta jeszcze w tej samej turze.
 
 Przyrost populacji w osadach odbywa się automatycznie. Każda osada, która
 posiada przynajmniej 2 jednostki populacji będzie co 3 tury otrzymywać
 dodatkową populację. Wzór na wzrost populacji x jest następujący: C<ceil(100 /
-(-x - 18.1) + 5)>
+(-x - 18.1) + 5)>.
 
 Ponieważ nowe osady mają populację 1 nie będą one automatycznie zwiększać
-populacji. Możliwy jest transfer populacji (resettle) z jednego miasta do
+populacji. Możliwy jest transfer populacji (C<resettle>) z jednego miasta do
 drugiego. Zajmuje on tyle czasu ile trwałaby podróż innej jednostki. W czasie
 transportu populacja nie zwiększa się. Złoto jest dostępne globalnie i nie jest
 potrzebny jego przewóz.
 
-Cel gry to jak największe rozbudowanie imperium. Gra będzie toczyć się
-określoną liczbę tur.
+Gra będzie toczyć się określoną liczbę tur.
 
 =head1 Jednostki
 
-Każda jednostka porusza się z prędkością 1 / turę.
+Każda jednostka porusza się z prędkością C<1> pole na turę.
 
 =head2 Odkrywca
 
+I<koszt 20 JZ>
+
 Odkrywca może zostać wysłany w celu zbadania terenu (C<send_explorer>). Przy
-przechodzeniu przez każdą jednostkę ma 40% szansy na wykrycie znajdującego się
+przechodzeniu przez każdą jednostkę ma C<40%> szansy na wykrycie znajdującego się
 tam złoża złota. Po wykryciu zakłada tam kopalnię, która następnie może być
 zasiedlona przez robotników. Po osiągnięciu końca ekspedycji odkrywca wraca do
 najbliższej osady.
 
 Drugim zadaniem odkrywców jest zakładanie nowych osad (C<send_explorer_settle>).
-Nowa osada nie może być założona mniej niż 5 jednostek od istniejącej. Po
-założeniu osady odkrywca przestaje być dostępny. Nowa osada ma populację 1.
+Nowa osada nie może być założona mniej niż C<5> jednostek od istniejącej. Po
+założeniu osady odkrywca przestaje być dostępny. Nowa osada ma populację C<1>.
 Jeśli po dotarciu na miejsce została założona druga osada będąca w zbytniej
 bliskości z nowopowstającą to odkrywca wraca do najbliższej osady.
 
 =head2 Robotnik
 
-Robotnik po zasiedleniu kopalni (C<send_worker>) będzie wydobywał z niej 1 JZ na
-turę. Nie ma limitu robotników w kopalni, jednak każda wielokrotność 10
-robotników powoduje zmniejszenie wydajności kolejnych 10 o 20%. Tak więc
+I<koszt 10 JZ>
+
+Robotnik po zasiedleniu kopalni (C<send_worker>) będzie wydobywał z niej C<0.5 JZ> na
+turę. Nie ma limitu robotników w kopalni, jednak każda wielokrotność C<10>
+robotników powoduje zmniejszenie wydajności kolejnych C<10> o C<20%>. Tak więc
 pierwsze dziesięć robotników w kopalni będzie wydobywać 100%, drugie dziesięć
 80%, trzecie dziesięć 80% z 80%, czyli 64% itd. Jeśli osada założona jest na
 kopalni to robotnik stacjonujący w mieście nie wydobywa z niej złota
@@ -89,17 +93,17 @@ powoduje automatycznego wydobywania złota przez robotników.
 
 =head1 API
 
-Wszystkie metody przyjmują parametry GET i zwracają obiekt JSON. Obiekt ten ma
-zawsze pole status będące wartością prawdziwą w przypadku powodzenia i fałszywą
-w przypadku błędu. Dodatkowo pole result informuje o wartości zwróconej z akcji
-przy powodzeniu, a pole error informuje o kodzie błędu.
+Wszystkie metody przyjmują parametry GET/POST i zwracają obiekt JSON. Obiekt ten ma
+zawsze pole C<status> będące wartością prawdziwą w przypadku powodzenia i fałszywą
+w przypadku błędu. Dodatkowo pole C<result> informuje o wartości zwróconej z akcji
+przy powodzeniu, a pole C<error> informuje o kodzie błędu.
 
 =over
 
 =item
 
 C<new_player(name): player> - tworzy nową symulację dla gracza o etykiecie
-name. Zwraca identyfikator gracza.
+C<name>. Zwraca identyfikator gracza.
 
 =item
 
@@ -156,11 +160,11 @@ transport ludności. Zwraca czas wykonania
 
 =back
 
-=head1 Websocket API
+=head1 WebSocket API
 
 API jest przydatne we wczesnej fazie (pozwala na łatwiejsze stworzenie
 odpowiedniej warstwy komunikacji), jednak w przypadku algorytmu przechodzącego
 setki tur zaleca się użycie połączenia przez Websocket. Takie połączenie
 pozwala na wykonanie wszystkich akcji API w takim samym formacie z jedną
-różnicą - w akcjach, w których jest pole player nie jest ono przekazywane, za
+różnicą - w akcjach, w które wymagają pola C<player> nie jest ono potrzebne, za
 to akcja C<new_player> powoduje zapisanie stanu gracza dla danego połączenia.

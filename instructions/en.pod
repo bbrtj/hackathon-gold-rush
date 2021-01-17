@@ -1,0 +1,172 @@
+=pod
+
+=encoding utf8
+
+=head1 Rules
+
+The game is taking place on one-dimentional map of finite size. Map position is
+denoted with a single natural number. Somewhere on the map are located gold
+deposits whose position is unknown to players. The number of those deposits is
+limited. The game is played in a turn-based system - after they performed all
+actions, the players must decide if they want to proceed to the next turn,
+which progresses all time-based actions. Each player has their own separate map
+and any interaction between the players is not possible.
+
+Player starts the game with the following assets:
+
+=over
+
+=item
+
+One settlement on position C<0> with population count of C<3>
+
+=item
+
+C<50> gold pieces (GP)
+
+=back
+
+The goal of the game is to grow the infrastructure and gain gold by taking
+ground and recruiting units. Available unit types are:
+
+=over
+
+=item
+
+Explorer, who can explore the area and establish new settlements.
+
+=item
+
+Worker, who can mine gold.
+
+=back
+
+Recruitment of new units requires reducing the settlement population count by
+C<1> and paying a fixed price in gold. The recruitment is instant and the new
+unit can be used before ending the turn.
+
+Population growth in settlements undergoes automatically. Each settlement which
+contains at least C<2> residents will gain new population every C<3> turns. The
+population growth equation is as follows: C<ceil(100 / (-x - 18.1) + 5)>.
+
+Since new settlements have population count of 1, they won't have any
+population growth. It's possible to C<resettle> population from one settlement
+to the other. It takes the same amount of time as it would take any other unit
+to travel. During the transport the population does not grow. The gold is
+available globally and there's no need to transport it.
+
+The game will only last a fixed amount of turns.
+
+=head1 Units
+
+Each unit moves at a rate of C<1> field per turn.
+
+=head2 Explorer
+
+I<costs 20 GP>
+
+The explorer can be tasked to examine the terrain (C<send_explorer>). Upon
+moving though each field they have C<40%> chance of detecting a gold deposit
+that is located there. If they succeed, they establish a mine which can be
+populated with workers. After reaching the target of his expedition, the
+explorer goes back to the nearest settlement.
+
+Another use of explorers is establishing new settlements
+(C<send_explorer_settle>). A new settlement cannot be established less than
+C<5> units away from an existing one. After starting a settlement the explorer
+is no longer available. The new settlement has a population count of C<1>. If
+upon reaching his destination a new settlement has been started in too close
+proximity, the explorer returns to the nearest village.
+
+=head2 Worker
+
+I<costs 10 GP>
+
+After populating a mine (C<send_worker>), the worker will mine C<0.5 GP> from
+it every turn. There is no limit to a number of workers in a mine, however each
+muliple of C<10> workers will cause the next C<10> to mine C<20%> less. This
+means that first 10 will mine 100%, the second ten will mine 80%, the third ten
+will mine 64% (80% * 80%) and so on. If a settlement is established on a mine,
+an idle worker in that settlement is not mining gold automatically but has to
+be sent to it. Starting a village on a deposit does not cause workers to
+automatically mine gold from it.
+
+=head1 API
+
+All methods use GET/POST parameters and return JSON-encoded object. This object
+always contains a C<status> field, which is a true value in case of success and
+a false value in case of an error. Additionally, a C<result> field is available
+upon success (returned value), and an C<error> field upon error (error code).
+
+=over
+
+=item
+
+C<new_player(name): player> - Creates a new simulation for a player with name
+C<name>. Returns the player id
+
+=item
+
+C<get_state(player): object> - Returns player's simulation state. Object
+fields:
+
+	- turn - turn number
+	- gold - gold count
+	- settlements, mines - settlement and mine information (array of objects)
+		- id - settlement / mine identifier
+		- population - settlement population / number of workers in a mine
+		- position - settlement / mine position
+	- explorers, workers - units information
+		- id - unit identifier
+		- position - unit position
+		- idle - is the unit idle (1/0)
+	- pseudounits - pseudounits information (currently - population transfers)
+		- id - unit identifier
+		- position - unit position
+		- idle - is the unit idle (1/0)
+
+=item
+
+C<end_turn(player): turn> - ends player's turn. Returns the number of a new
+turn
+
+=item
+
+C<train_worker(player, settlement): worker> - trains a new worker in a
+settlement. Returns the identifier
+
+=item
+
+C<train_explorer(player, settlement): explorer> - trains a new explorer in a
+settlement. Returns the identifier
+
+=item
+
+C<send_worker(player, worker, mine): time> - sends a worker to a mine. Returns
+ETA
+
+=item
+
+C<send_explorer(player, explorer, position): time> - sends an explorer to
+explore the area. Returns ETA
+
+=item
+
+C<send_explorer_settle(player, explorer, position): time> - sends an explorer
+to establish a settlement. Returns ETA
+
+=item
+
+C<resettle(player, count, settlement_from, settlement_to): time> - transports
+population between the settlements. Returns ETA
+
+=back
+
+=head1 WebSocket API
+
+API is handy to kickstart a communication layer in the early phase, however
+once the algorithm is playing for hundreds of turns it is recommended to use
+the WebSocket connection. This API exposes the same format as stated above with
+just a single difference - actions which require the C<player> field does not
+accept it explicitly, but instead the C<new_player> action causes the websocket
+connection to hold the player state.
