@@ -11,3 +11,5 @@ requires "Type::Tiny";
 requires "Kelp";
 requires "Kelp::Module::WebSocket::AnyEvent";
 requires "Twiggy";
+
+requires "CryptX";

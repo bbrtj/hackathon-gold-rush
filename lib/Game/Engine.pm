@@ -23,7 +23,7 @@ sub end_turn
 sub generate_player_hash
 {
 	my ($name) = @_;
-	my $id = generate_id "player", $name;
+	my $id = generate_id;
 	$state{$id} = Game::Instance->new(player_name => $name);
 	mkdir "scores";
 	open my $file, ">", "scores/$name";

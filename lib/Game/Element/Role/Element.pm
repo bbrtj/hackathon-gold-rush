@@ -10,7 +10,7 @@ use Game::Util qw(generate_id);
 has "id" => (
 	is => "ro",
 	isa => Str,
-	default => sub { generate_id "element" },
+	default => sub { generate_id },
 );
 
 has "position" => (

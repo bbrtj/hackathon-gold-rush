@@ -7,6 +7,9 @@ use Syntax::Keyword::Try;
 use List::Util qw(first);
 
 use Game::Engine;
+use Game::Settings;
+
+$Game::Settings::map = [2, 4, 8, 11, 17, 20, 25, 34, 41, 60, 91, 142, 188];
 
 my $player = Game::Engine::generate_player_hash("test");
 Game::Engine::end_turn($player) for 1 .. 3;

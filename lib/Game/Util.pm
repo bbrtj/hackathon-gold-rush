@@ -3,37 +3,37 @@ package Game::Util;
 use Modern::Perl "2018";
 use Exporter qw(import);
 use Digest::SHA qw(sha1_hex);
+use Crypt::PRNG::Fortuna qw(rand);
+use Crypt::Misc qw(random_v4uuid);
+
+use Types::Common::Numeric qw(PositiveInt PositiveOrZeroInt);
 
 our @EXPORT_OK = qw(
 	generate_id
 	parameter_checks
+	random
 );
 
 sub generate_id
 {
-	my ($type) = @_;
-	state $last = 1;
-	if ($type eq "player") {
-		my $data = join "::", @_;
-		return substr sha1_hex($data), 0, 10;
-	}
-	if ($type eq "element") {
-		return sprintf "%x", $last++;
-	}
+	random_v4uuid
 }
 
 sub parameter_checks
 {
-	return {
+	state $checks = {
 		position => sub {
-			die \"Position must be non-negative"
-				if $_[0] < 0;
+			PositiveOrZeroInt->assert_valid($_[0])
 		},
 		count => sub {
-			die \"Count must be positive"
-				unless $_[0] > 0;
+			PositiveInt->assert_valid($_[0])
 		},
 	};
+}
+
+sub random
+{
+	rand;
 }
 
 1;

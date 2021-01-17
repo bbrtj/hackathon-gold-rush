@@ -7,6 +7,8 @@ use List::Util qw(first min);
 use aliased "Game::Element::Mine" => "Mine";
 use aliased "Game::Element::Settlement" => "Settlement";
 use Game::Settings;
+use Game::Util qw(random);
+
 with "Game::Element::Role::Unit";
 
 sub _order_settle
@@ -38,7 +40,7 @@ sub _order_explore
 	my $pos = $self->position;
 	my $is_mine = defined first { $_ == $pos } @map;
 	if ($is_mine && !scalar $instance->mines->find_by_pos($pos)->@*) {
-		my $explore_roll = rand();
+		my $explore_roll = random;
 		if (1 - $explore_roll < $Game::Settings::exploring_success_rate) {
 			my $mine = Mine->new(position => $pos);
 			$instance->add_mine($mine);
