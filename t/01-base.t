@@ -1,8 +1,6 @@
-#!/usr/bin/env perl
-
 use Modern::Perl "2018";
-
 use Test::More;
+
 use Syntax::Keyword::Try;
 use List::Util qw(first);
 
