@@ -1,23 +1,8 @@
 package Game::Engine;
 
 use Modern::Perl "2018";
-use Exporter qw(import);
 use Game::Instance;
 use Game::Util qw(generate_id parameter_checks);
-
-our @EXPORT_OK = qw(
-	end_turn
-	generate_player_hash
-	get_state
-	train_worker
-	train_explorer
-	send_worker
-	send_explorer
-	send_explorer_settle
-	resettle
-);
-
-our %EXPORT_TAGS = (all => \@EXPORT_OK);
 
 my %state;
 

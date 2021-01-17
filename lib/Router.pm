@@ -1,19 +1,19 @@
 package Router;
 
 use Modern::Perl "2018";
-use Game::Engine qw(:all);
+use Game::Engine;
 use ApiInterface qw(api_call assert_params trap_errors);
 
 my %types = (
-	new_player => [\&generate_player_hash, [qw(name)]],
-	end_turn => [\&end_turn, [qw(player)]],
-	train_worker => [\&train_worker, [qw(player settlement)]],
-	train_explorer => [\&train_explorer, [qw(player settlement)]],
-	send_worker => [\&send_worker, [qw(player worker mine)]],
-	send_explorer => [\&send_explorer, [qw(player explorer position)]],
-	send_explorer_settle => [\&send_explorer_settle, [qw(player explorer position)]],
-	resettle => [\&resettle, [qw(player count settlement_from settlement_to)]],
-	get_state => [\&get_state, [qw(player)]],
+	new_player => [\&Game::Engine::generate_player_hash, [qw(name)]],
+	end_turn => [\&Game::Engine::end_turn, [qw(player)]],
+	train_worker => [\&Game::Engine::train_worker, [qw(player settlement)]],
+	train_explorer => [\&Game::Engine::train_explorer, [qw(player settlement)]],
+	send_worker => [\&Game::Engine::send_worker, [qw(player worker mine)]],
+	send_explorer => [\&Game::Engine::send_explorer, [qw(player explorer position)]],
+	send_explorer_settle => [\&Game::Engine::send_explorer_settle, [qw(player explorer position)]],
+	resettle => [\&Game::Engine::resettle, [qw(player count settlement_from settlement_to)]],
+	get_state => [\&Game::Engine::get_state, [qw(player)]],
 );
 
 sub install_routes
