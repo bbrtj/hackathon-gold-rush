@@ -12,14 +12,18 @@ my $app = GoldRush->new;
 my $json = $app->json;
 
 my @messages = map { $json->encode($_) } (
+	[qw(this is not a json encoded object)],
 	{type => "get_state"},
 	{type => "new_player", name => "mememe"},
 	{type => "get_status"},
 	{type => "get_state"},
 );
 
+unshift @messages, 'this is not a json';
+
 my @results;
 my @expected_results = (
+	([0, sub { like shift->{error}, qr/invalid input data/i, 'invalid data ok' }]) x 2,
 	[0, sub { like shift->{error}, qr/param .+ is required/i, 'unknown param error ok' }],
 	[1, sub { ok is_v4uuid shift->{result}, 'player uuid ok' }],
 	[0, sub { like shift->{error}, qr/unknown request type/i, 'unknown req error ok' }],

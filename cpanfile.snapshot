@@ -731,14 +731,13 @@ DISTRIBUTIONS
       Kelp 0
       Plack 0
       perl 5.010
-  Kelp-Module-WebSocket-AnyEvent-1.03
-    pathname: B/BR/BRTASTIC/Kelp-Module-WebSocket-AnyEvent-1.03.tar.gz
+  Kelp-Module-WebSocket-AnyEvent-1.04
+    pathname: B/BR/BRTASTIC/Kelp-Module-WebSocket-AnyEvent-1.04.tar.gz
     provides:
-      Kelp::Module::WebSocket::AnyEvent 1.03
-      Kelp::Module::WebSocket::AnyEvent::Connection 1.03
+      Kelp::Module::WebSocket::AnyEvent 1.04
+      Kelp::Module::WebSocket::AnyEvent::Connection 1.04
     requirements:
       ExtUtils::MakeMaker 0
-      Kelp 0
       Kelp::Module::Symbiosis 0
       Plack::App::WebSocket 0
       Try::Tiny 0

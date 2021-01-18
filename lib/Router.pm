@@ -47,6 +47,9 @@ sub install_routes
 	$ws->add(message => sub {
 		my ($conn, $params) = @_;
 
+		return $conn->send(trap_errors sub { die \"Invalid input data" })
+			unless ref $params eq ref {};
+
 		my $result;
 		$params->{player} = $conn->data->{player};
 
@@ -60,12 +63,19 @@ sub install_routes
 				if $type eq q<new_player> && $result->{status};
 		}
 		else {
-			$result = trap_errors sub { die \"Unknown request type"; };
+			$result = trap_errors sub { die \"Unknown request type" };
 		}
 
 		$conn->send($result);
 	});
 
+	$ws->add(malformed_message => sub {
+		my ($conn, $message, $err) = @_;
+		my $result = trap_errors sub { die \"Invalid input data" };
+		$conn->send($result);
+	});
+
+	$ws->add(error => sub { die'wtf'});
 }
 
 1;
