@@ -1,4 +1,4 @@
-A game server for a hackathon-like event (in development)
+A game server for a hackathon-like event
 ===========
 
 ### Name
@@ -21,9 +21,10 @@ of turns win.
 *Recommended skill level:* Intermediate. Likely too hard for beginners to have
 fun.
 
-*Recommended solving time:* no less than two hours. Since the goal is not a
-simple matter of solving a puzzle, it can be back and forth battle who has the
-better algorithm with live preview of current leaders.
+*Recommended solving time:* no less than three to four hours, as this is the
+time it took the author to write the reference perl bot implementation. Since
+the goal is not a simple matter of solving a puzzle, it can be back and forth
+battle who has the better algorithm with live preview of current leaders.
 
 ### Configuration
 
@@ -36,14 +37,29 @@ of the other commands will have to start with `carton exec`.*
 
 ### Testing
 
-`prove -l`
+`prove -l` will assert that the installation runs correctly.
 
 ### Running
 
-`plackup -s Twiggy runner.psgi`
+`plackup -s Twiggy runner.psgi` will run the API/websocket server.
 
 ### Instructions
 
 See instructions/lang.pod for game reference. Can do it in
 command line with command: `pod2text instructions/lang.pod`.
 
+### Game bot implementations
+
+The `examples` directory contains approaches to playing the game.
+Caution: _SPOILERS_
+
+### Scores
+
+After playing the game, a `scores` directory will contain scores for players. A
+scores file contains multiple JSON documents, each in its own line. It
+represents states of the game at different points in time (every 5 rounds).
+
+### TODO
+
+- Interactive scoreboard as a web page, with charts and stuff
+- Docker image for easier setup
