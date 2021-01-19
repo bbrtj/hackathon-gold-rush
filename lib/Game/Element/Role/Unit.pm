@@ -16,7 +16,7 @@ has "moving" => (
 
 has "order" => (
 	is => "rw",
-	isa => Maybe[CodeRef],
+	isa => Maybe [CodeRef],
 	lvalue => 1,
 	default => sub { undef },
 );

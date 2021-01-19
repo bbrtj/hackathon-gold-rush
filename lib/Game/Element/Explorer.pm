@@ -22,7 +22,8 @@ sub _order_settle
 		if ($minimum < $Game::Settings::settlement_min_proximity) {
 			my $closest = $instance->_get_by_id(settlements => $locations{$minimum}[0]);
 			$self->order_move($closest->position);
-		} else {
+		}
+		else {
 			my $settlement = Settlement->new(position => $pos, population => 1);
 			$instance->add_settlement($settlement);
 
@@ -38,7 +39,8 @@ sub _order_explore
 	$self->_order_move($instance);
 	my @map = $instance->map->@*;
 	my $pos = $self->position;
-	my $is_mine = defined first { $_ == $pos } @map;
+	my $is_mine = defined first { $_ == $pos }
+		@map;
 	if ($is_mine && !scalar $instance->mines->find_by_pos($pos)->@*) {
 		my $explore_roll = random;
 		if (1 - $explore_roll < $Game::Settings::exploring_success_rate) {

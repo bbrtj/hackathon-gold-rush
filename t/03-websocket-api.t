@@ -27,11 +27,14 @@ my @expected_results = (
 	[0, sub { like shift->{error}, qr/param .+ is required/i, 'unknown param error ok' }],
 	[1, sub { ok is_v4uuid shift->{result}, 'player uuid ok' }],
 	[0, sub { like shift->{error}, qr/unknown request type/i, 'unknown req error ok' }],
-	[1, sub {
-		my $data = shift;
-		is $data->{result}{settlements}[0]{population}, 3, 'state population ok';
-		is $data->{result}{turn}, 0, 'state turn ok';
-	}],
+	[
+		1,
+		sub {
+			my $data = shift;
+			is $data->{result}{settlements}[0]{population}, 3, 'state population ok';
+			is $data->{result}{turn}, 0, 'state turn ok';
+		}
+	],
 );
 
 WEBSOCKET: {
@@ -48,31 +51,35 @@ WEBSOCKET: {
 
 	my $client = AnyEvent::WebSocket::Client->new;
 	my $this_connection;
-	$client->connect("ws://127.0.0.1:" . $server->port . "/ws")->cb(sub {
-		try {
-			$this_connection = shift->recv
-		} catch ($err) {
-			fail $err;
-			return;
-		}
-
-		$this_connection->on(
-			each_message => sub {
-				my ($connection, $message) = @_;
-				push @results, $json->decode($message->{body});
-
-				if (@messages) {
-					$connection->send(shift @messages)
-				} else {
-					$connection->close;
-					note "Closing connection";
-					$condvar->send;
-				}
+	$client->connect("ws://127.0.0.1:" . $server->port . "/ws")->cb(
+		sub {
+			try {
+				$this_connection = shift->recv
 			}
-		);
+			catch ($err) {
+				fail $err;
+				return;
+			}
 
-		$this_connection->send(shift @messages)
-	});
+			$this_connection->on(
+				each_message => sub {
+					my ($connection, $message) = @_;
+					push @results, $json->decode($message->{body});
+
+					if (@messages) {
+						$connection->send(shift @messages);
+					}
+					else {
+						$connection->close;
+						note "Closing connection";
+						$condvar->send;
+					}
+				}
+			);
+
+			$this_connection->send(shift @messages);
+		}
+	);
 
 	my $w = AE::timer 5, 0, sub {
 		fail "event loop was not stopped";

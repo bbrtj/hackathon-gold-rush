@@ -20,62 +20,69 @@ sub install_routes
 {
 	my ($kelp) = @_;
 
-
 	### API ###
 
 	my $r = $kelp->routes;
 
 	for my $type (keys %types) {
 		my ($code_ref, $params_ref) = $types{$type}->@*;
-		$r->add('/' . $type => {
-			to => api_call sub {
-				my ($params) = @_;
-				return $code_ref->(assert_params $params, @{$params_ref});
-			},
-		});
+		$r->add(
+			'/' . $type => {
+				to => api_call sub {
+					my ($params) = @_;
+					return $code_ref->(assert_params $params, @{$params_ref});
+				},
+			}
+		);
 	}
 
-	$r->add('/results' => sub {
-		# TODO
-	});
+	$r->add(
+		'/results' => sub {
 
+			# TODO
+		}
+	);
 
 	### WebSocket ###
 
 	my $ws = $kelp->websocket;
 
-	$ws->add(message => sub {
-		my ($conn, $params) = @_;
+	$ws->add(
+		message => sub {
+			my ($conn, $params) = @_;
 
-		return $conn->send(trap_websocket sub { die \"Invalid input data" })
-			unless ref $params eq ref {};
+			return $conn->send(trap_websocket sub { die \"Invalid input data" })
+				unless ref $params eq ref {};
 
-		my $result;
-		$params->{player} = $conn->data->{player};
+			my $result;
+			$params->{player} = $conn->data->{player};
 
-		my $type = $params->{type};
-		if ($type && exists $types{$type}) {
-			my ($code_ref, $params_ref) = $types{$type}->@*;
-			$result = trap_websocket sub { $code_ref->(assert_params $params, $params_ref->@*) };
+			my $type = $params->{type};
+			if ($type && exists $types{$type}) {
+				my ($code_ref, $params_ref) = $types{$type}->@*;
+				$result = trap_websocket sub { $code_ref->(assert_params $params, $params_ref->@*) };
 
-			# special case - set websocket connection player
-			$conn->data->{player} = $result->{result}
-				if $type eq q<new_player> && $result->{status};
+				# special case - set websocket connection player
+				$conn->data->{player} = $result->{result}
+					if $type eq q<new_player> && $result->{status};
+			}
+			else {
+				$result = trap_websocket sub { die \"Unknown request type" };
+			}
+
+			$conn->send($result);
 		}
-		else {
-			$result = trap_websocket sub { die \"Unknown request type" };
+	);
+
+	$ws->add(
+		malformed_message => sub {
+			my ($conn, $message, $err) = @_;
+			my $result = trap_websocket sub { die \"Invalid input data" };
+			$conn->send($result);
 		}
+	);
 
-		$conn->send($result);
-	});
-
-	$ws->add(malformed_message => sub {
-		my ($conn, $message, $err) = @_;
-		my $result = trap_websocket sub { die \"Invalid input data" };
-		$conn->send($result);
-	});
-
-	$ws->add(error => sub { die'wtf'});
+	$ws->add(error => sub { die 'wtf' });
 }
 
 1;

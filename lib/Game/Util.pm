@@ -16,17 +16,17 @@ our @EXPORT_OK = qw(
 
 sub generate_id
 {
-	random_v4uuid
+	random_v4uuid;
 }
 
 sub parameter_checks
 {
 	state $checks = {
 		position => sub {
-			PositiveOrZeroInt->assert_valid($_[0])
+			PositiveOrZeroInt->assert_valid($_[0]);
 		},
 		count => sub {
-			PositiveInt->assert_valid($_[0])
+			PositiveInt->assert_valid($_[0]);
 		},
 	};
 }

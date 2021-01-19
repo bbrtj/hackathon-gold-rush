@@ -14,12 +14,14 @@ sub build
 	my ($self) = @_;
 	my $r = $self->routes;
 
-	$r->add('/', {
-		method => 'GET',
-		to => sub {
-			return "Gold Rush game server version $VERSION";
-		},
-	});
+	$r->add(
+		'/', {
+			method => 'GET',
+			to => sub {
+				return "Gold Rush game server version $VERSION";
+			},
+		}
+	);
 
 	Router::install_routes($self);
 }

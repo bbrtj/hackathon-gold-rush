@@ -16,7 +16,8 @@ sub trap_errors
 	try {
 		my $ret = $sub->(@params);
 		return {status => \1, result => $ret};
-	} catch ($error) {
+	}
+	catch ($error) {
 		die $error unless ref $error;
 
 		my $exception;
@@ -37,7 +38,8 @@ sub trap_websocket
 {
 	try {
 		return trap_errors(@_);
-	} catch ($error) {
+	}
+	catch ($error) {
 		die $error unless blessed $error;
 
 		return $error->body;

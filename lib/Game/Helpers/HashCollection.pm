@@ -6,19 +6,19 @@ use Types::Standard qw(Maybe HashRef ConsumerOf Str ArrayRef);
 
 has "type" => (
 	is => "ro",
-	isa => Maybe[Str],
+	isa => Maybe [Str],
 	required => 1,
 );
 
 has "collection" => (
 	is => "rw",
-	isa => HashRef[ConsumerOf["Game::Element::Role::Element"]],
+	isa => HashRef [ConsumerOf ["Game::Element::Role::Element"]],
 	default => sub { {} },
 );
 
 has "position_cache" => (
 	is => "rw",
-	isa => HashRef[ArrayRef[Str]],
+	isa => HashRef [ArrayRef [Str]],
 	default => sub { {} },
 );
 
@@ -38,8 +38,9 @@ sub remove
 {
 	my ($self, $element_id) = @_;
 	my $element = delete $self->collection->{$element_id};
-	$self->position_cache->{$element->position} = [grep { $_ ne $element->id } $self->position_cache->{$element->position}-@*]
-	if defined $self->position_cache->{$element->position};
+	$self->position_cache->{$element->position} =
+		[grep { $_ ne $element->id } $self->position_cache->{$element->position} - @*]
+		if defined $self->position_cache->{$element->position};
 }
 
 sub aref
@@ -61,7 +62,8 @@ sub find_by_pos
 	if (defined $self->position_cache->{$position}) {
 		my @ids = $self->position_cache->{$position}->@*;
 		return [@{$self->collection}{@ids}];
-	} else {
+	}
+	else {
 		return [grep { $_->position == $position } values $self->collection->%*];
 	}
 }

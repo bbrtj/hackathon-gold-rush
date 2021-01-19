@@ -22,6 +22,7 @@ sub _order_resettle
 		my $pos = $self->position;
 		my $settlement = $instance->settlements->find_by_pos($pos)->[0];
 		$settlement->population += $self->population;
+
 		# destroy the unit
 		$instance->remove_pseudounit($self->id);
 	}

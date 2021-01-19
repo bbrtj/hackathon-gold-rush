@@ -20,7 +20,7 @@ has "player_name" => (
 
 has "map" => (
 	is => "ro",
-	isa => ArrayRef[Int],
+	isa => ArrayRef [Int],
 	default => sub { $Game::Settings::map },
 	handles_via => "Array",
 	handles => {
@@ -44,7 +44,7 @@ has "gold" => (
 
 has "settlements" => (
 	is => "rw",
-	isa => InstanceOf["Game::Helpers::HashCollection"],
+	isa => InstanceOf ["Game::Helpers::HashCollection"],
 	default => sub {
 		my $c = Collection->new(type => "Game::Element::Settlement");
 		$c->add(Settlement->new(position => 0, population => $Game::Settings::default_population));
@@ -58,7 +58,7 @@ has "settlements" => (
 
 has "workers" => (
 	is => "rw",
-	isa => InstanceOf["Game::Helpers::HashCollection"],
+	isa => InstanceOf ["Game::Helpers::HashCollection"],
 	default => sub { Collection->new(type => "Game::Element::Worker") },
 	handles => {
 		add_worker => "add",
@@ -68,7 +68,7 @@ has "workers" => (
 
 has "explorers" => (
 	is => "rw",
-	isa => InstanceOf["Game::Helpers::HashCollection"],
+	isa => InstanceOf ["Game::Helpers::HashCollection"],
 	default => sub { Collection->new(type => "Game::Element::Explorer") },
 	handles => {
 		add_explorer => "add",
@@ -78,7 +78,7 @@ has "explorers" => (
 
 has "mines" => (
 	is => "rw",
-	isa => InstanceOf["Game::Helpers::HashCollection"],
+	isa => InstanceOf ["Game::Helpers::HashCollection"],
 	default => sub { Collection->new(type => "Game::Element::Mine") },
 	handles => {
 		add_mine => "add",
@@ -88,7 +88,7 @@ has "mines" => (
 
 has "pseudounits" => (
 	is => "rw",
-	isa => InstanceOf["Game::Helpers::HashCollection"],
+	isa => InstanceOf ["Game::Helpers::HashCollection"],
 	default => sub { Collection->new(type => undef) },
 	handles => {
 		add_pseudounit => "add",

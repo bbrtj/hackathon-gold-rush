@@ -11,7 +11,7 @@ with "Game::Element::Role::Unit";
 
 has "working" => (
 	is => "rw",
-	isa => Maybe[InstanceOf["Game::Element::Mine"]],
+	isa => Maybe [InstanceOf ["Game::Element::Mine"]],
 	lvalue => 1,
 	default => sub { undef },
 );
