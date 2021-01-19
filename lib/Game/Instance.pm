@@ -254,7 +254,7 @@ sub serialize
 	# number of records is too large
 	$base->{workers} = [grep { !$_->{working} } $base->{workers}->@*];
 
-	if (($base->{turn} + 3) % 5 == 0) {
+	if (($base->{turn} + 5) % 5 == 0) {
 		$self->save_score($base);
 	}
 

@@ -12,7 +12,7 @@ sub train_unit
 	my ($self, $unit) = @_;
 
 	my $pop = $self->population;
-	die "Cannot train unit, settlement is empty!"
+	die \"Cannot train unit, settlement is empty!"
 		if $pop == 0;
 
 	$unit->position($self->position);
