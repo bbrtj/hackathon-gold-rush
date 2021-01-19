@@ -5,6 +5,7 @@ use Moo;
 
 with qw(Role::Phase);
 use Phase::Hoarding;
+use Bot::Util;
 
 use constant next_phase => Phase::Hoarding::;
 
@@ -25,7 +26,7 @@ sub ended {
 	my ($self) = @_;
 
 	# we should end this phase once we're close to the end
-	return $self->player->state->{turn} > 975;
+	return $self->player->state->{turn} > Bot::Util->TURN_LIMIT - 40;
 }
 
 1;

@@ -13,9 +13,11 @@ use Logger;
 
 ###################### WEBSOCKET REFERENCE IMPLEMENTATION #####################
 # This is a possible implementation of a simple bot solving the Gold Rush game.
-# This bot, after a short setup phase, enters the phase of intense worker
-# production while always keeping two explorers, one for exploring and one for
-# starting new settlements.
+# This bot, after a short setup phase and a population growing phase, enters
+# the phase of intense worker production while always keeping two explorers,
+# one for exploring and one for starting new settlements. It can randomly fail
+# due to worker lifespan, but overall seem to stash at least 4000 gold, with up
+# to over 10000 observed as the all time high.
 ###############################################################################
 
 my $host = shift @ARGV // '127.0.0.1:5000';

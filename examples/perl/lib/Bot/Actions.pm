@@ -26,7 +26,7 @@ sub send_explorers {
 
 			if (!$phase->already_settling && $phase->mines->@* > 0) {
 				# settling
-				my $pos = $farthest_settlement + 5;
+				my $pos = $farthest_settlement + Bot::Util->SETTLEMENT_MINIMUM_DISTANCE;
 
 				$phase->add_order(
 					'send_explorer_settle',
@@ -38,7 +38,7 @@ sub send_explorers {
 			else {
 				# exploring
 				my $pos = int(rand $farthest_settlement + 10) + 1;
-				$pos += 5
+				$pos += Bot::Util->SETTLEMENT_MINIMUM_DISTANCE
 					if $pos == $explorer->{position};
 
 				$phase->add_order(
@@ -75,7 +75,8 @@ sub send_workers {
 				mine => $phase->mines->[$mine]->{id}
 			);
 
-			$mine = ($mine + 1) % $total_mines;
+			# this does not really help
+			# $mine = ($mine + 1) % $total_mines;
 		}
 	}
 }
@@ -87,18 +88,18 @@ sub transport_population {
 		$phase->already_settling(0);
 		for my $settlement (@settlements) {
 			my $from = first {
-				$_->{population} > 4
+				$_->{population} > Bot::Util->POP_GROW_THRESHOLD
 			} $phase->settlements->@*;
 
 			if (defined $from) {
 				$phase->add_order(
 					'resettle',
-					count => 2,
+					count => 1,
 					settlement_from => $from->{id},
 					settlement_to => $settlement->{id}
 				);
 				$phase->transported_to->{$settlement->{id}} = $from->{id};
-				$from->{population} -= 2;
+				$from->{population} -= 1;
 			}
 		}
 	}

@@ -29,7 +29,7 @@ sub ended {
 	return
 		$self->player->state->{mines}->@* > 0
 		&& $self->player->state->{settlements}->@* > 1
-		&& $self->player->state->{mines}[0]{population} > 0;
+		&& $self->player->state->{mines}[0]{population} > 1;
 }
 
 1;

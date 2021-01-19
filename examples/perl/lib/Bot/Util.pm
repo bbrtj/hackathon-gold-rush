@@ -3,14 +3,25 @@ package Bot::Util;
 use Modern::Perl "2018";
 use List::Util qw(first sum);
 
-use constant EXPLORER_GOLD => 30;
-use constant WORKER_GOLD => 20;
+use constant {
+	EXPLORER_GOLD => 30,
+	WORKER_GOLD => 20,
+
+	TRAIN_EXPLORER_POP_THRESHOLD => 3,
+	TRAIN_WORKER_POP_THRESHOLD => 2,
+
+	POP_GROW_THRESHOLD => 2,
+	SETTLEMENT_MINIMUM_DISTANCE => 5,
+	TURN_LIMIT => 1000,
+
+	DESIRED_EXPLORERS_NUMBER => 2,
+};
 
 sub can_train_explorer {
 	my ($self, $phase) = @_;
 
 	my $settlement = first {
-		$_->{population} > 2
+		$_->{population} > TRAIN_EXPLORER_POP_THRESHOLD
 	} $phase->settlements->@*;
 
 	my $working = sum map { $_->{population} } $phase->mines->@*;
@@ -19,8 +30,8 @@ sub can_train_explorer {
 	if (
 		$phase->gold >= EXPLORER_GOLD
 		&& defined $settlement
-		&& ($phase->workers->@* > 0 || $working > 0 || $phase->gold >= EXPLORER_GOLD + WORKER_GOLD)
-		&& $phase->explorers->@* <= 2
+		&& ($phase->workers->@* > 1 || $working > 1 || $phase->gold >= EXPLORER_GOLD + WORKER_GOLD)
+		&& $phase->explorers->@* <= DESIRED_EXPLORERS_NUMBER
 	) {
 		return $settlement;
 	}
@@ -45,7 +56,7 @@ sub can_train_workers {
 	return unless $phase->mines->@*;
 
 	my @settlements = grep {
-		$_->{population} > 2
+		$_->{population} > TRAIN_WORKER_POP_THRESHOLD
 	} $phase->settlements->@*;
 
 	my @ret;
@@ -74,7 +85,7 @@ sub should_transport_population {
 
 	# careful not to transfer everyone when the transport is in progress
 	my @settlements = grep {
-		$_->{population} < 2 && !$phase->transported_to->{$_->{id}}
+		$_->{population} < POP_GROW_THRESHOLD && !$phase->transported_to->{$_->{id}}
 	} $phase->settlements->@*;
 
 	return @settlements;

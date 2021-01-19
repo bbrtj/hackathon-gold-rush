@@ -6,6 +6,7 @@ use Types::Standard qw(ConsumerOf Int HashRef Str ArrayRef);
 use Phase::Setup;
 use WebSocketStatus;
 use Scalar::Util qw(blessed);
+use List::Util qw(sum0);
 use Logger;
 
 has 'phase' => (
@@ -56,6 +57,12 @@ sub _handle_last {
 
 	# exit condition
 	if (!$message->{status} && $message->{error} =~ /game ended/i) {
+		Logger::log 'Stashed ' . $self->state->{gold} . ' gold pieces total';
+		Logger::log 'Built ' . (scalar $self->state->{settlements}->@*) . ' settlements';
+		Logger::log 'Discovered ' . (scalar $self->state->{mines}->@*) . ' mines';
+		Logger::log 'Total population ' . (sum0 map { $_->{population} } $self->state->{settlements}->@*);
+		Logger::log 'Total active miners ' . (sum0 map { $_->{population} } $self->state->{mines}->@*);
+
 		return WebSocketStatus->new(
 			playing => 0
 		);
