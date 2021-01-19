@@ -1,6 +1,7 @@
 package Game::Settings;
 
 use Modern::Perl "2018";
+use Quantum::Superpositions::Lazy qw(superpos collapse);
 
 our $game_length = 1000;
 
@@ -39,14 +40,12 @@ our $mining = sub {
 
 our $settlement_min_proximity = 5;
 
-# TODO: modify the map here
-our $map =
+our $map = sub {
+	my @positions;
+	my $deposit_every = 5;
+	for my $start (map { $_ * $deposit_every } 0 .. 40) {
+		push @positions, superpos($start + 1 .. $start + $deposit_every);
+	}
+	return [collapse @positions];
+}->();
 
-	# normal
-	[3, 5, 9, 14, 16, 23, 26, 33, 35, 36, 40, 49, 54, 59, 63, 68, 72, 74, 79, 87, 91, 96, 108, 131, 155];
-
-# barren
-# [7, 15, 23, 35, 48, 54, 66, 80, 85, 93, 143];
-# rich
-# [3, 5, 6, 9, 11, 14, 16, 19, 24, 25, 29, 31, 34, 38, 39, 42, 45, 46, 50, 53, 55, 58, 61, 67, 70, 72, 73, 77, 80, 83, 85, 90, 91, 92, 95, 98, 111, 123, 134, 145];
-1;

@@ -21,6 +21,7 @@ requires "Kelp::Module::Symbiosis";
 requires "Twiggy";
 
 requires "CryptX";
+requires "Quantum::Superpositions::Lazy";
 
 recommends "Cpanel::JSON::XS";
 
