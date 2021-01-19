@@ -247,6 +247,10 @@ sub serialize
 		}
 	}
 
+	# do not include working - client can rememer ids if they wish to, and the
+	# number of records is too large
+	$base->{workers} = [grep { !$_->{working} } $base->{workers}->@*];
+
 	if (($base->{turn} + 3) % 5 == 0) {
 		$self->save_score($base);
 	}
