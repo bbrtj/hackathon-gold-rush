@@ -41,14 +41,14 @@ Robotnik (worker), który wydobywa złoto
 
 =back
 
-Szkolenie nowych jednostek wymaga zmniejszenia populacji osady o 1 oraz wydania
+Szkolenie nowych jednostek wymaga zmniejszenia populacji osady o C<1> oraz wydania
 określonej kwoty w złocie.  Szkolenie jest natychmiastowe i nowa jednostka może
 być użyta jeszcze w tej samej turze.
 
 Przyrost populacji w osadach odbywa się automatycznie. Każda osada, która
-posiada przynajmniej 2 jednostki populacji będzie co 3 tury otrzymywać
-dodatkową populację. Wzór na wzrost populacji x jest następujący: C<ceil(100 /
-(-x - 18.1) + 5)>.
+posiada przynajmniej C<2> jednostki populacji będzie co C<5> tur otrzymywać
+dodatkowego mieszkańca. Powyżej 52 mieszkańców, wzrost ten wynosi dwóch
+mieszkańców.
 
 Ponieważ nowe osady mają populację 1 nie będą one automatycznie zwiększać
 populacji. Możliwy jest transfer populacji (C<resettle>) z jednego miasta do
@@ -56,15 +56,18 @@ drugiego. Zajmuje on tyle czasu ile trwałaby podróż innej jednostki. W czasie
 transportu populacja nie zwiększa się. Złoto jest dostępne globalnie i nie jest
 potrzebny jego przewóz.
 
-Gra będzie toczyć się określoną liczbę tur.
+Gra będzie toczyć się przez 1000 tur.
 
 =head1 Jednostki
 
 Każda jednostka porusza się z prędkością C<1> pole na turę.
 
+Jednostki mają także określoną długość życia - C<100> tur. Po tym czasie
+odchodzą ze starości, nawet podczas pracy w kolpani / wykonywania rozkazu.
+
 =head2 Odkrywca
 
-I<koszt 20 JZ>
+I<koszt 30 JZ>
 
 Odkrywca może zostać wysłany w celu zbadania terenu (C<send_explorer>). Przy
 przechodzeniu przez każdą jednostkę ma C<40%> szansy na wykrycie znajdującego się
@@ -80,13 +83,13 @@ bliskości z nowopowstającą to odkrywca wraca do najbliższej osady.
 
 =head2 Robotnik
 
-I<koszt 10 JZ>
+I<koszt 20 JZ>
 
 Robotnik po zasiedleniu kopalni (C<send_worker>) będzie wydobywał z niej C<0.5 JZ> na
-turę. Nie ma limitu robotników w kopalni, jednak każda wielokrotność C<10>
-robotników powoduje zmniejszenie wydajności kolejnych C<10> o C<20%>. Tak więc
-pierwsze dziesięć robotników w kopalni będzie wydobywać 100%, drugie dziesięć
-80%, trzecie dziesięć 80% z 80%, czyli 64% itd. Jeśli osada założona jest na
+turę. Nie ma limitu robotników w kopalni, jednak każda wielokrotność C<5>
+robotników powoduje zmniejszenie wydajności kolejnych C<5> o C<20%>. Tak więc
+pierwsze pięć robotników w kopalni będzie wydobywać 100%, drugie pięć
+80%, trzecie pięć 80% z 80%, czyli 64% itd. Jeśli osada założona jest na
 kopalni to robotnik stacjonujący w mieście nie wydobywa z niej złota
 automatycznie, musi zostać do niej wysłany. Założenie osady na złożu nie
 powoduje automatycznego wydobywania złota przez robotników.
@@ -115,10 +118,15 @@ C<get_state(player): object> - zwraca stan symulacji dla gracza. Pola obiektu:
 		- id - identyfikator osady / kopalni
 		- population - populacja osady / liczba robotników w kopalni
 		- position - pozycja osady / kopalni
-	- explorers, workers - informacje o jednostkach
+	- explorers
 		- id - identyfikator jednostki
 		- position - pozycja jednostki
 		- idle - czy jednostka jest nieobsadzona (1/0)
+	- workers
+		- id - identyfikator jednostki
+		- position - pozycja jednostki
+		- idle - czy jednostka jest nieobsadzona (1/0)
+		- working - czy jednostka pracuje w kopalni (zawsze fałsz; tylko jednostki, które nie pracują są wymienione)
 	- pseudounits - informacje o niby-jednostkach (aktualnie - transporty ludności)
 		- id - identyfikator jednostki
 		- position - pozycja jednostki
@@ -168,3 +176,7 @@ setki tur zaleca się użycie połączenia przez Websocket. Takie połączenie
 pozwala na wykonanie wszystkich akcji API w takim samym formacie z jedną
 różnicą - w akcjach, w które wymagają pola C<player> nie jest ono potrzebne, za
 to akcja C<new_player> powoduje zapisanie stanu gracza dla danego połączenia.
+
+Zaleca się wykonywanie rozkazów sychronicznie poprzez czekanie na odpowiedź
+przed wykonaniem nowego rozkazu. Odpowiedzi na rozkazy nie zawierają
+identyfikatorów, więc nie da się inaczej określić na który rozkaz odpowiadają.

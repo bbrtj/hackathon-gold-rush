@@ -46,8 +46,8 @@ C<1> and paying a fixed price in gold. The recruitment is instant and the new
 unit can be used before ending the turn.
 
 Population growth in settlements undergoes automatically. Each settlement which
-contains at least C<2> residents will gain new population every C<3> turns. The
-population growth equation is as follows: C<ceil(100 / (-x - 18.1) + 5)>.
+contains at least C<2> residents will gain new citizen every C<5> turns.  A
+population of 52 and above will gain two citizens.
 
 Since new settlements have population count of 1, they won't have any
 population growth. It's possible to C<resettle> population from one settlement
@@ -55,15 +55,18 @@ to the other. It takes the same amount of time as it would take any other unit
 to travel. During the transport the population does not grow. The gold is
 available globally and there's no need to transport it.
 
-The game will only last a fixed amount of turns.
+The game will only last 1000 turns.
 
 =head1 Units
 
 Each unit moves at a rate of C<1> field per turn.
 
+Units also have a timespan of C<100> turns. After that, they pass away from old
+age, even during working in a mine / executing an order.
+
 =head2 Explorer
 
-I<costs 20 GP>
+I<costs 30 GP>
 
 The explorer can be tasked to examine the terrain (C<send_explorer>). Upon
 moving though each field they have C<40%> chance of detecting a gold deposit
@@ -80,12 +83,12 @@ proximity, the explorer returns to the nearest village.
 
 =head2 Worker
 
-I<costs 10 GP>
+I<costs 20 GP>
 
 After populating a mine (C<send_worker>), the worker will mine C<0.5 GP> from
 it every turn. There is no limit to a number of workers in a mine, however each
-muliple of C<10> workers will cause the next C<10> to mine C<20%> less. This
-means that first 10 will mine 100%, the second ten will mine 80%, the third ten
+muliple of C<5> workers will cause the next C<5> to mine C<20%> less. This
+means that first 5 will mine 100%, the second five will mine 80%, the third five
 will mine 64% (80% * 80%) and so on. If a settlement is established on a mine,
 an idle worker in that settlement is not mining gold automatically but has to
 be sent to it. Starting a village on a deposit does not cause workers to
@@ -116,10 +119,15 @@ fields:
 		- id - settlement / mine identifier
 		- population - settlement population / number of workers in a mine
 		- position - settlement / mine position
-	- explorers, workers - units information
+	- explorers
 		- id - unit identifier
 		- position - unit position
 		- idle - is the unit idle (1/0)
+	- workers
+		- id - unit identifier
+		- position - unit position
+		- idle - is the unit idle (1/0)
+		- working - is the unit working in a mine (will always be false; only not working workers are listed)
 	- pseudounits - pseudounits information (currently - population transfers)
 		- id - unit identifier
 		- position - unit position
@@ -170,3 +178,7 @@ the WebSocket connection. This API exposes the same format as stated above with
 just a single difference - actions which require the C<player> field does not
 accept it explicitly, but instead the C<new_player> action causes the websocket
 connection to hold the player state.
+
+It is recommended to execute the orders synchronously by waiting for a response
+before executing the next order. Order responses contain no identifiers, so
+there will be no way to tell from which order they come otherwise.
