@@ -2,7 +2,7 @@ package Router;
 
 use Modern::Perl "2018";
 use Game::Engine;
-use ApiInterface qw(api_call assert_params trap_errors);
+use ApiInterface qw(api_call assert_params trap_websocket);
 
 my %types = (
 	new_player => [\&Game::Engine::generate_player_hash, [qw(name)]],
@@ -47,7 +47,7 @@ sub install_routes
 	$ws->add(message => sub {
 		my ($conn, $params) = @_;
 
-		return $conn->send(trap_errors sub { die \"Invalid input data" })
+		return $conn->send(trap_websocket sub { die \"Invalid input data" })
 			unless ref $params eq ref {};
 
 		my $result;
@@ -56,14 +56,14 @@ sub install_routes
 		my $type = $params->{type};
 		if ($type && exists $types{$type}) {
 			my ($code_ref, $params_ref) = $types{$type}->@*;
-			$result = trap_errors sub { $code_ref->(assert_params $params, $params_ref->@*) };
+			$result = trap_websocket sub { $code_ref->(assert_params $params, $params_ref->@*) };
 
 			# special case - set websocket connection player
 			$conn->data->{player} = $result->{result}
 				if $type eq q<new_player> && $result->{status};
 		}
 		else {
-			$result = trap_errors sub { die \"Unknown request type" };
+			$result = trap_websocket sub { die \"Unknown request type" };
 		}
 
 		$conn->send($result);
@@ -71,7 +71,7 @@ sub install_routes
 
 	$ws->add(malformed_message => sub {
 		my ($conn, $message, $err) = @_;
-		my $result = trap_errors sub { die \"Invalid input data" };
+		my $result = trap_websocket sub { die \"Invalid input data" };
 		$conn->send($result);
 	});
 
