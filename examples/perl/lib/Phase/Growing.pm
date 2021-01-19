@@ -29,7 +29,7 @@ sub ended {
 	} $self->player->state->{settlements}->@*;
 
 	# we can end this phase when we grow a bit
-	return $total_population > 30;
+	return $total_population > 20;
 }
 
 1;

@@ -20,6 +20,10 @@ sub send_explorers {
 
 		my $farthest_settlement = max map { $_->{position} } $phase->settlements->@*;
 		for my $explorer (@explorers) {
+			if (!grep { $_->{id} eq $phase->already_settling } $phase->explorers->@*) {
+				$phase->already_settling(0);
+			}
+
 			if (!$phase->already_settling && $phase->mines->@* > 0) {
 				# settling
 				my $pos = $farthest_settlement + 5;
@@ -29,7 +33,7 @@ sub send_explorers {
 					explorer => $explorer->{id},
 					position => $pos
 				);
-				$phase->already_settling(1);
+				$phase->already_settling($explorer->{id});
 			}
 			else {
 				# exploring
