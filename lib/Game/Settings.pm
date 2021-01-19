@@ -8,19 +8,19 @@ our $default_gold = 50;
 our $default_population = 3;
 
 our %unit_prices = (
-	worker => 10,
-	explorer => 20,
+	worker => 20,
+	explorer => 30,
 );
 our $exploring_success_rate = 0.4;
 
 our $population_growth_tick = 3;
 our $population_growth = sub {
 	my ($pop) = @_;
-	return int(100 / (-$pop - 18.1) + 5 + 0.9999);
+	return int(100 / (-$pop - 24) + 4 + 0.9999);
 };
 
 my $mining_rate = 0.5;
-my $mining_step = 10;
+my $mining_step = 5;
 my $mining_drop = 0.8;
 our $mining = sub {
 	my ($miners) = @_;
