@@ -38,9 +38,11 @@ sub remove
 {
 	my ($self, $element_id) = @_;
 	my $element = delete $self->collection->{$element_id};
-	$self->position_cache->{$element->position} =
-		[grep { $_ ne $element->id } $self->position_cache->{$element->position} - @*]
-		if defined $self->position_cache->{$element->position};
+	if ($element) {
+		$self->position_cache->{$element->position} =
+			[grep { $_ ne $element->id } $self->position_cache->{$element->position} - @*]
+			if defined $self->position_cache->{$element->position};
+	}
 }
 
 sub aref

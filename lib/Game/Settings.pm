@@ -18,7 +18,7 @@ our $unit_max_age = 100;
 our $population_growth_tick = 5;
 our $population_growth = sub {
 	my ($pop) = @_;
-	return int(100 / (-$pop - 24) + 4 + 0.9999);
+	return int(100 / (-$pop - 49) + 2 + 0.9999);
 };
 
 my $mining_rate = 0.5;
