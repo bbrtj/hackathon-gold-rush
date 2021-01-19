@@ -66,7 +66,7 @@ try {
 	);
 
 	$player = Game::Engine::generate_player_hash("test");
-	Game::Engine::end_turn($player) for 1 .. 3;
+	Game::Engine::end_turn($player) for 1 .. 5;
 
 	$state = Game::Engine::get_state($player);
 	is(scalar $state->{settlements}->@*, 1, "Settlement exists");
@@ -144,8 +144,7 @@ try {
 	$mine = get_mine($state, $mine);
 	is($state->{gold}, 0, "Gold is zero");
 	is($mine->{population}, 1, "Mine population ok");
-	is(get_worker($state, $worker_id)->{position}, $mine->{position}, "Worker position ok");
-	is(get_worker($state, $worker_id)->{working}, 1, "Worker is working");
+	is(get_worker($state, $worker_id), undef, "Worker is not listed, so is working");
 
 	Game::Engine::end_turn($player);
 	$state = Game::Engine::get_state($player);
