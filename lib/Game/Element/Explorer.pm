@@ -9,7 +9,10 @@ use aliased "Game::Element::Settlement" => "Settlement";
 use Game::Settings;
 use Game::Util qw(random);
 
-with "Game::Element::Role::Unit";
+with qw(
+	Game::Element::Role::Unit
+	Game::Element::Role::Mortal
+);
 
 sub _order_settle
 {

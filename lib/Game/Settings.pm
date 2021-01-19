@@ -13,7 +13,8 @@ our %unit_prices = (
 );
 our $exploring_success_rate = 0.4;
 
-our $population_growth_tick = 3;
+our $unit_max_age = 100;
+our $population_growth_tick = 5;
 our $population_growth = sub {
 	my ($pop) = @_;
 	return int(100 / (-$pop - 24) + 4 + 0.9999);

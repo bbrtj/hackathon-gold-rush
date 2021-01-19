@@ -133,6 +133,9 @@ sub _update_state
 		my $arr = $items{$ord}->aref;
 		for my $item (@$arr) {
 			$item->end_of_turn($self);
+			if ($item->DOES(Game::Element::Role::Mortal::) && $item->dead) {
+				$items{$ord}->remove($item->id);
+			}
 		}
 	}
 }

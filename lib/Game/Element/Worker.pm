@@ -7,7 +7,10 @@ use Types::Standard qw(Maybe InstanceOf);
 use List::Util qw(first);
 
 use Game::Element::Mine;
-with "Game::Element::Role::Unit";
+with qw(
+	Game::Element::Role::Unit
+	Game::Element::Role::Mortal
+);
 
 has "working" => (
 	is => "rw",
@@ -46,6 +49,14 @@ around serialize => sub {
 
 	$ret->{working} = defined $self->working ? 1 : 0;
 	return $ret;
+};
+
+before set_dead => sub {
+	my ($self, $instance) = @_;
+	if (defined $self->working) {
+		$self->working->population -= 1;
+		$self->working = undef;
+	}
 };
 
 1;
