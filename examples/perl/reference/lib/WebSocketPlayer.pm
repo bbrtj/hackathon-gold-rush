@@ -73,8 +73,7 @@ sub _handle_last
 
 	# an error
 	if (!$message->{status}) {
-		use Data::Dumper;
-		die Dumper($message);
+		die "False value status\n";
 	}
 
 	my %significant = (

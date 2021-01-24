@@ -47,6 +47,7 @@ $ua->start(
 					$status = $player->handle($decoded);
 				}
 				catch ($error) {
+					Logger::log $message;
 					Logger::log 'Exception occured: ' . $error;
 					$connection->finish;
 				}

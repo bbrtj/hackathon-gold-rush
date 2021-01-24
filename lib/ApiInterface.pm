@@ -6,7 +6,7 @@ use Syntax::Keyword::Try;
 use Scalar::Util qw(blessed);
 use Kelp::Exception;
 
-our @EXPORT_OK = qw(trap_errors trap_websocket api_call assert_params);
+our @EXPORT_OK = qw(trap_errors api_call assert_params);
 
 sub trap_errors
 {
@@ -31,18 +31,6 @@ sub trap_errors
 			$exception = Kelp::Exception->new(403, body => {@err => $error});
 		}
 		die $exception;
-	}
-}
-
-sub trap_websocket
-{
-	try {
-		return trap_errors(@_);
-	}
-	catch ($error) {
-		die $error unless blessed $error;
-
-		return $error->body;
 	}
 }
 

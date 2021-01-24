@@ -2,13 +2,13 @@
 	modules => [
 		qw(
 			JSON
-			)
+		),
 	],
 
 	middleware => [
 		qw(
 			TrailingSlashKiller
-			)
+		),
 	],
 
 	middleware_init => {

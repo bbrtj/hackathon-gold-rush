@@ -2,7 +2,7 @@ package Router;
 
 use Modern::Perl "2018";
 use Game::Engine;
-use ApiInterface qw(api_call assert_params trap_websocket);
+use ApiInterface qw(api_call assert_params trap_errors);
 
 my %types = (
 	new_player => [\&Game::Engine::generate_player_hash, [qw(name)]],
@@ -37,11 +37,44 @@ sub install_routes
 	}
 
 	$r->add(
+		'/multi' => sub {
+			my ($kelp) = @_;
+
+			return trap_errors sub {
+				die \'expected json' unless $kelp->req->is_json;
+
+				my $player = $kelp->param('player');
+				my $commands = $kelp->param('commands');
+				die \'array reference expected'
+					unless ref $commands eq ref [];
+
+				die \'no commands'
+					unless $commands->@*;
+
+				for my $command ($commands->@*) {
+					my ($type, %params) = $command->@*;
+					$params{player} = $player;
+
+					die \"unknown command $type"
+						unless exists $types{$type};
+
+					my ($code_ref, $params_ref) = $types{$type}->@*;
+					$code_ref->(assert_params \%params, $params_ref->@*);
+				}
+
+				return $types{get_state}->[0]->($player);
+			};
+
+		},
+	);
+
+	$r->add(
 		'/results' => sub {
 
 			# TODO
 		}
 	);
+
 }
 
 1;
