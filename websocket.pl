@@ -4,7 +4,7 @@ use Mojolicious::Lite -strict;
 use Mojo::UserAgent;
 use Mojo::JSON qw(decode_json);
 
-use constant APP_LOCATION => '127.0.0.1:5000';
+my $app_location = $ENV{HACKATHON_GAME_HOST} // 'localhost:5000';
 
 my %map;
 my %queue;
@@ -23,7 +23,7 @@ sub query_game_server
 	my ($c, $type, $hash, $content_type) = @_;
 	$content_type //= 'form';
 
-	my $res = $ua->get(APP_LOCATION . "/$type", $content_type => $hash)->res;
+	my $res = $ua->get("$app_location/$type", $content_type => $hash)->res;
 	if ($res->error || $res->is_error) {
 		if ($res->body) {
 			$c->send({text => $res->body});

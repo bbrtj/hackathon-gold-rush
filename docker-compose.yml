@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+    common:
+        build: .
+        image: brtastic/gold-rush-game:0.1
+
+    mojo:
+        depends_on:
+            - common
+        build: docker/mojo
+        ports:
+            - "3000:3000"
+        networks:
+            - hackathon
+        volumes:
+            - hackathon:/opt/game
+        environment:
+            - HACKATHON_GAME_HOST=game:5000
+
+    game:
+        depends_on:
+            - common
+        build: docker/game
+        ports:
+            - "5000:5000"
+        networks:
+            - hackathon
+        volumes:
+            - hackathon:/opt/game
+
+volumes:
+    hackathon: {}
+
+networks:
+    hackathon: {}
