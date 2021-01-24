@@ -1,93 +1,5 @@
 # carton snapshot format: version 1.0
 DISTRIBUTIONS
-  AnyEvent-7.17
-    pathname: M/ML/MLEHMANN/AnyEvent-7.17.tar.gz
-    provides:
-      AE undef
-      AE::Log::COLLECT undef
-      AE::Log::FILTER undef
-      AE::Log::LOG undef
-      AnyEvent 7.17
-      AnyEvent::Base 7.17
-      AnyEvent::CondVar 7.17
-      AnyEvent::CondVar::Base 7.17
-      AnyEvent::DNS undef
-      AnyEvent::Debug undef
-      AnyEvent::Debug::Backtrace undef
-      AnyEvent::Debug::Wrap undef
-      AnyEvent::Debug::Wrapped undef
-      AnyEvent::Debug::shell undef
-      AnyEvent::Handle undef
-      AnyEvent::IO undef
-      AnyEvent::IO::IOAIO undef
-      AnyEvent::IO::Perl undef
-      AnyEvent::Impl::Cocoa undef
-      AnyEvent::Impl::EV undef
-      AnyEvent::Impl::Event undef
-      AnyEvent::Impl::EventLib undef
-      AnyEvent::Impl::FLTK undef
-      AnyEvent::Impl::Glib undef
-      AnyEvent::Impl::IOAsync undef
-      AnyEvent::Impl::Irssi undef
-      AnyEvent::Impl::POE undef
-      AnyEvent::Impl::Perl undef
-      AnyEvent::Impl::Qt undef
-      AnyEvent::Impl::Qt::Io undef
-      AnyEvent::Impl::Qt::Timer undef
-      AnyEvent::Impl::Tk undef
-      AnyEvent::Impl::UV undef
-      AnyEvent::Log undef
-      AnyEvent::Log::COLLECT undef
-      AnyEvent::Log::Ctx undef
-      AnyEvent::Log::FILTER undef
-      AnyEvent::Log::LOG undef
-      AnyEvent::Loop undef
-      AnyEvent::Socket undef
-      AnyEvent::Strict undef
-      AnyEvent::TLS undef
-      AnyEvent::Util undef
-    requirements:
-      Canary::Stability 0
-      ExtUtils::MakeMaker 6.52
-  AnyEvent-Connector-0.03
-    pathname: T/TO/TOSHIOITO/AnyEvent-Connector-0.03.tar.gz
-    provides:
-      AnyEvent::Connector 0.03
-      AnyEvent::Connector::Proxy::http undef
-    requirements:
-      AnyEvent::Handle 0
-      AnyEvent::Socket 0
-      Module::Build 0.42
-      Module::Build::Prereqs::FromCPANfile 0.02
-      URI 0
-  AnyEvent-WebSocket-Client-0.53
-    pathname: P/PL/PLICEASE/AnyEvent-WebSocket-Client-0.53.tar.gz
-    provides:
-      AnyEvent::WebSocket::Client 0.53
-      AnyEvent::WebSocket::Connection 0.53
-      AnyEvent::WebSocket::Message 0.53
-    requirements:
-      AnyEvent 7.13
-      AnyEvent::Connector 0.03
-      ExtUtils::MakeMaker 0
-      Moo 2.0
-      PerlX::Maybe 0.003
-      Protocol::WebSocket 0.20
-      URI 1.53
-      URI::ws 0
-      perl 5.008
-  AnyEvent-WebSocket-Server-0.09
-    pathname: T/TO/TOSHIOITO/AnyEvent-WebSocket-Server-0.09.tar.gz
-    provides:
-      AnyEvent::WebSocket::Server 0.09
-    requirements:
-      AnyEvent::Handle 0
-      AnyEvent::WebSocket::Client 0.37
-      Carp 0
-      Module::Build 0.42
-      Module::Build::Prereqs::FromCPANfile 0.02
-      Protocol::WebSocket::Handshake::Server 0
-      Try::Tiny 0
   Apache-LogFormat-Compiler-0.36
     pathname: K/KA/KAZEBURO/Apache-LogFormat-Compiler-0.36.tar.gz
     provides:
@@ -128,12 +40,6 @@ DISTRIBUTIONS
       perl 5.008001
       strict 0
       warnings 0
-  Canary-Stability-2013
-    pathname: M/ML/MLEHMANN/Canary-Stability-2013.tar.gz
-    provides:
-      Canary::Stability 2013
-    requirements:
-      ExtUtils::MakeMaker 0
   Class-Data-Inheritable-0.08
     pathname: T/TM/TMTM/Class-Data-Inheritable-0.08.tar.gz
     provides:
@@ -771,29 +677,6 @@ DISTRIBUTIONS
       perl 5.010000
       strict 0
       warnings 0
-  Kelp-Module-Symbiosis-1.11
-    pathname: B/BR/BRTASTIC/Kelp-Module-Symbiosis-1.11.tar.gz
-    provides:
-      Kelp::Module::Symbiosis 1.11
-      Kelp::Module::Symbiosis::Base 1.11
-      Kelp::Module::Symbiosis::Test 1.11
-      KelpX::Symbiosis::Test 1.11
-    requirements:
-      ExtUtils::MakeMaker 0
-      Kelp 0
-      Plack 0
-      perl 5.010
-  Kelp-Module-WebSocket-AnyEvent-1.04
-    pathname: B/BR/BRTASTIC/Kelp-Module-WebSocket-AnyEvent-1.04.tar.gz
-    provides:
-      Kelp::Module::WebSocket::AnyEvent 1.04
-      Kelp::Module::WebSocket::AnyEvent::Connection 1.04
-    requirements:
-      ExtUtils::MakeMaker 0
-      Kelp::Module::Symbiosis 0
-      Plack::App::WebSocket 0
-      Try::Tiny 0
-      perl 5.010
   LWP-MediaTypes-6.04
     pathname: O/OA/OALDERS/LWP-MediaTypes-6.04.tar.gz
     provides:
@@ -943,15 +826,6 @@ DISTRIBUTIONS
       Text::ParseWords 0
       perl 5.006001
       version 0.87
-  Module-Build-Prereqs-FromCPANfile-0.02
-    pathname: T/TO/TOSHIOITO/Module-Build-Prereqs-FromCPANfile-0.02.tar.gz
-    provides:
-      Module::Build::Prereqs::FromCPANfile 0.02
-    requirements:
-      CPAN::Meta::Prereqs 2.132830
-      Exporter 0
-      Module::CPANfile 1.0000
-      version 0.80
   Module-Build-Tiny-0.039
     pathname: L/LE/LEONT/Module-Build-Tiny-0.039.tar.gz
     provides:
@@ -977,19 +851,6 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
-  Module-CPANfile-1.1004
-    pathname: M/MI/MIYAGAWA/Module-CPANfile-1.1004.tar.gz
-    provides:
-      Module::CPANfile 1.1004
-      Module::CPANfile::Environment undef
-      Module::CPANfile::Prereq undef
-      Module::CPANfile::Prereqs undef
-      Module::CPANfile::Requirement undef
-    requirements:
-      CPAN::Meta 2.12091
-      CPAN::Meta::Prereqs 2.12091
-      ExtUtils::MakeMaker 0
-      parent 0
   Module-Implementation-0.09
     pathname: D/DR/DROLSKY/Module-Implementation-0.09.tar.gz
     provides:
@@ -1011,6 +872,125 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
+  Mojolicious-8.71
+    pathname: S/SR/SRI/Mojolicious-8.71.tar.gz
+    provides:
+      Mojo undef
+      Mojo::Asset undef
+      Mojo::Asset::File undef
+      Mojo::Asset::Memory undef
+      Mojo::Base undef
+      Mojo::ByteStream undef
+      Mojo::Cache undef
+      Mojo::Collection undef
+      Mojo::Content undef
+      Mojo::Content::MultiPart undef
+      Mojo::Content::Single undef
+      Mojo::Cookie undef
+      Mojo::Cookie::Request undef
+      Mojo::Cookie::Response undef
+      Mojo::DOM undef
+      Mojo::DOM::CSS undef
+      Mojo::DOM::HTML undef
+      Mojo::Date undef
+      Mojo::DynamicMethods undef
+      Mojo::EventEmitter undef
+      Mojo::Exception undef
+      Mojo::File undef
+      Mojo::Headers undef
+      Mojo::HelloWorld undef
+      Mojo::Home undef
+      Mojo::IOLoop undef
+      Mojo::IOLoop::Client undef
+      Mojo::IOLoop::Delay undef
+      Mojo::IOLoop::Server undef
+      Mojo::IOLoop::Stream undef
+      Mojo::IOLoop::Subprocess undef
+      Mojo::IOLoop::TLS undef
+      Mojo::JSON undef
+      Mojo::JSON::Pointer undef
+      Mojo::Loader undef
+      Mojo::Log undef
+      Mojo::Message undef
+      Mojo::Message::Request undef
+      Mojo::Message::Response undef
+      Mojo::Parameters undef
+      Mojo::Path undef
+      Mojo::Promise undef
+      Mojo::Reactor undef
+      Mojo::Reactor::EV undef
+      Mojo::Reactor::Poll undef
+      Mojo::Server undef
+      Mojo::Server::CGI undef
+      Mojo::Server::Daemon undef
+      Mojo::Server::Hypnotoad undef
+      Mojo::Server::Morbo undef
+      Mojo::Server::Morbo::Backend undef
+      Mojo::Server::Morbo::Backend::Poll undef
+      Mojo::Server::PSGI undef
+      Mojo::Server::Prefork undef
+      Mojo::Template undef
+      Mojo::Transaction undef
+      Mojo::Transaction::HTTP undef
+      Mojo::Transaction::WebSocket undef
+      Mojo::URL undef
+      Mojo::Upload undef
+      Mojo::UserAgent undef
+      Mojo::UserAgent::CookieJar undef
+      Mojo::UserAgent::Proxy undef
+      Mojo::UserAgent::Server undef
+      Mojo::UserAgent::Transactor undef
+      Mojo::Util undef
+      Mojo::WebSocket undef
+      Mojolicious 8.71
+      Mojolicious::Command undef
+      Mojolicious::Command::Author::cpanify undef
+      Mojolicious::Command::Author::generate undef
+      Mojolicious::Command::Author::generate::app undef
+      Mojolicious::Command::Author::generate::dockerfile undef
+      Mojolicious::Command::Author::generate::lite_app undef
+      Mojolicious::Command::Author::generate::makefile undef
+      Mojolicious::Command::Author::generate::plugin undef
+      Mojolicious::Command::Author::inflate undef
+      Mojolicious::Command::cgi undef
+      Mojolicious::Command::daemon undef
+      Mojolicious::Command::eval undef
+      Mojolicious::Command::get undef
+      Mojolicious::Command::prefork undef
+      Mojolicious::Command::psgi undef
+      Mojolicious::Command::routes undef
+      Mojolicious::Command::version undef
+      Mojolicious::Commands undef
+      Mojolicious::Controller undef
+      Mojolicious::Lite undef
+      Mojolicious::Plugin undef
+      Mojolicious::Plugin::Config undef
+      Mojolicious::Plugin::DefaultHelpers undef
+      Mojolicious::Plugin::EPLRenderer undef
+      Mojolicious::Plugin::EPRenderer undef
+      Mojolicious::Plugin::HeaderCondition undef
+      Mojolicious::Plugin::JSONConfig undef
+      Mojolicious::Plugin::Mount undef
+      Mojolicious::Plugin::NotYAMLConfig undef
+      Mojolicious::Plugin::TagHelpers undef
+      Mojolicious::Plugins undef
+      Mojolicious::Renderer undef
+      Mojolicious::Routes undef
+      Mojolicious::Routes::Match undef
+      Mojolicious::Routes::Pattern undef
+      Mojolicious::Routes::Route undef
+      Mojolicious::Sessions undef
+      Mojolicious::Static undef
+      Mojolicious::Types undef
+      Mojolicious::Validator undef
+      Mojolicious::Validator::Validation undef
+      Test::Mojo undef
+      ojo undef
+    requirements:
+      ExtUtils::MakeMaker 0
+      IO::Socket::IP 0.37
+      Sub::Util 1.41
+      perl 5.016
   Moo-2.004004
     pathname: H/HA/HAARG/Moo-2.004004.tar.gz
     provides:
@@ -1167,11 +1147,11 @@ DISTRIBUTIONS
       overload 0
       strict 0
       warnings 0
-  Path-Tiny-0.114
-    pathname: D/DA/DAGOLDEN/Path-Tiny-0.114.tar.gz
+  Path-Tiny-0.116
+    pathname: D/DA/DAGOLDEN/Path-Tiny-0.116.tar.gz
     provides:
-      Path::Tiny 0.114
-      Path::Tiny::Error 0.114
+      Path::Tiny 0.116
+      Path::Tiny::Error 0.116
     requirements:
       Carp 0
       Cwd 0
@@ -1193,15 +1173,6 @@ DISTRIBUTIONS
       strict 0
       warnings 0
       warnings::register 0
-  PerlX-Maybe-1.201
-    pathname: T/TO/TOBYINK/PerlX-Maybe-1.201.tar.gz
-    provides:
-      PerlX::Maybe 1.201
-      Syntax::Feature::Maybe 1.201
-    requirements:
-      ExtUtils::MakeMaker 6.17
-      Scalar::Util 0
-      perl 5.006
   Plack-1.0048
     pathname: M/MI/MIYAGAWA/Plack-1.0048.tar.gz
     provides:
@@ -1301,46 +1272,6 @@ DISTRIBUTIONS
       WWW::Form::UrlEncoded 0.23
       parent 0
       perl 5.008001
-  Plack-App-WebSocket-0.08
-    pathname: T/TO/TOSHIOITO/Plack-App-WebSocket-0.08.tar.gz
-    provides:
-      Plack::App::WebSocket 0.08
-      Plack::App::WebSocket::Connection 0.08
-    requirements:
-      AnyEvent 0
-      AnyEvent::WebSocket::Server 0.06
-      Carp 0
-      Devel::GlobalDestruction 0
-      Module::Build 0.42
-      Module::Build::Prereqs::FromCPANfile 0.02
-      Plack::Component 0
-      Plack::Response 0
-      Scalar::Util 0
-      Try::Tiny 0
-      parent 0
-  Protocol-WebSocket-0.26
-    pathname: V/VT/VTI/Protocol-WebSocket-0.26.tar.gz
-    provides:
-      Protocol::WebSocket 0.26
-      Protocol::WebSocket::Client undef
-      Protocol::WebSocket::Cookie undef
-      Protocol::WebSocket::Cookie::Request undef
-      Protocol::WebSocket::Cookie::Response undef
-      Protocol::WebSocket::Frame undef
-      Protocol::WebSocket::Handshake undef
-      Protocol::WebSocket::Handshake::Client undef
-      Protocol::WebSocket::Handshake::Server undef
-      Protocol::WebSocket::Message undef
-      Protocol::WebSocket::Request undef
-      Protocol::WebSocket::Response undef
-      Protocol::WebSocket::Stateful undef
-      Protocol::WebSocket::URL undef
-    requirements:
-      Carp 0
-      Digest::MD5 0
-      Digest::SHA 0
-      Module::Build::Tiny 0.035
-      Scalar::Util 0
   Quantum-Superpositions-Lazy-1.05
     pathname: B/BR/BRTASTIC/Quantum-Superpositions-Lazy-1.05.tar.gz
     provides:
@@ -1365,11 +1296,11 @@ DISTRIBUTIONS
       Type::Tiny 0
       namespace::clean 0
       perl 5.028
-  Role-Tiny-2.002003
-    pathname: H/HA/HAARG/Role-Tiny-2.002003.tar.gz
+  Role-Tiny-2.002004
+    pathname: H/HA/HAARG/Role-Tiny-2.002004.tar.gz
     provides:
-      Role::Tiny 2.002003
-      Role::Tiny::With 2.002003
+      Role::Tiny 2.002004
+      Role::Tiny::With 2.002004
     requirements:
       Exporter 5.57
       perl 5.006
@@ -1498,10 +1429,10 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       Scalar::Util 0
       perl 5.006
-  Syntax-Keyword-Try-0.20
-    pathname: P/PE/PEVANS/Syntax-Keyword-Try-0.20.tar.gz
+  Syntax-Keyword-Try-0.21
+    pathname: P/PE/PEVANS/Syntax-Keyword-Try-0.21.tar.gz
     provides:
-      Syntax::Keyword::Try 0.20
+      Syntax::Keyword::Try 0.21
     requirements:
       ExtUtils::CBuilder 0
       Module::Build 0.4004
@@ -1670,22 +1601,6 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
-  Twiggy-0.1025
-    pathname: M/MI/MIYAGAWA/Twiggy-0.1025.tar.gz
-    provides:
-      AnyEvent::Server::PSGI undef
-      Plack::Handler::Twiggy undef
-      Twiggy 0.1025
-      Twiggy::Server undef
-      Twiggy::Server::SS undef
-      Twiggy::Writer undef
-    requirements:
-      AnyEvent 0
-      ExtUtils::MakeMaker 0
-      HTTP::Status 0
-      Plack 0.99
-      Try::Tiny 0
-      perl 5.008001
   Type-Tiny-1.012001
     pathname: T/TO/TOBYINK/Type-Tiny-1.012001.tar.gz
     provides:
@@ -1798,14 +1713,6 @@ DISTRIBUTIONS
       strict 0
       utf8 0
       warnings 0
-  URI-ws-0.03
-    pathname: P/PL/PLICEASE/URI-ws-0.03.tar.gz
-    provides:
-      URI::ws 0.03
-      URI::wss 0.03
-    requirements:
-      ExtUtils::MakeMaker 6.30
-      URI 0
   Variable-Magic-0.62
     pathname: V/VP/VPIT/Variable-Magic-0.62.tar.gz
     provides:

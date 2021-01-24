@@ -42,47 +42,6 @@ sub install_routes
 			# TODO
 		}
 	);
-
-	### WebSocket ###
-
-	my $ws = $kelp->websocket;
-
-	$ws->add(
-		message => sub {
-			my ($conn, $params) = @_;
-
-			return $conn->send(trap_websocket sub { die \"Invalid input data" })
-				unless ref $params eq ref {};
-
-			my $result;
-			$params->{player} = $conn->data->{player};
-
-			my $type = $params->{type};
-			if ($type && exists $types{$type}) {
-				my ($code_ref, $params_ref) = $types{$type}->@*;
-				$result = trap_websocket sub { $code_ref->(assert_params $params, $params_ref->@*) };
-
-				# special case - set websocket connection player
-				$conn->data->{player} = $result->{result}
-					if $type eq q<new_player> && $result->{status};
-			}
-			else {
-				$result = trap_websocket sub { die \"Unknown request type" };
-			}
-
-			$conn->send($result);
-		}
-	);
-
-	$ws->add(
-		malformed_message => sub {
-			my ($conn, $message, $err) = @_;
-			my $result = trap_websocket sub { die \"Invalid input data" };
-			$conn->send($result);
-		}
-	);
-
-	$ws->add(error => sub { die 'wtf' });
 }
 
 1;

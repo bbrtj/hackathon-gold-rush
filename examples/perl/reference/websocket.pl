@@ -1,8 +1,8 @@
 #!/usr/bin/env perl
 
 use Modern::Perl "2018";
-use AnyEvent;
-use AnyEvent::WebSocket::Client;
+use Mojo::IOLoop;
+use Mojo::UserAgent;
 use Syntax::Keyword::Try;
 use JSON::MaybeXS;
 
@@ -20,54 +20,46 @@ use Logger;
 # to over 10000 observed as the all time high.
 ###############################################################################
 
-my $host = shift @ARGV // '127.0.0.1:5000';
+my $host = shift @ARGV // '127.0.0.1:3000';
 
-my $condvar = AE::cv;
+my $ua = Mojo::UserAgent->new;
 
 Logger::log "Connecting to $host";
 
 my $player = WebSocketPlayer->new;
 my $json = JSON()->new;
-my $client = AnyEvent::WebSocket::Client->new;
-my $this_connection;
-$client->connect("ws://$host/ws")->cb(
-	sub {
+my $tx = $ua->build_websocket_tx("ws://$host");
+
+$ua->start($tx => sub {
+	my ($ua, $conn) = @_;
+	Logger::log 'WebSocket handshake failed!' and return
+		unless $conn->is_websocket;
+
+	$conn->on(message => sub {
+		my ($connection, $message) = @_;
+		my $decoded;
+		my $status;
+
 		try {
-			$this_connection = shift->recv
+			$decoded = $json->decode($message);
+			$status = $player->handle($decoded);
+		} catch ($error) {
+			Logger::log 'Exception occured: ' . $error;
+			$connection->finish;
 		}
-		catch ($err) {
-			die "Could not establish connection";
+
+		if ($status && $status->playing) {
+			Logger::log $status->log;
+			$connection->send($json->encode($status->message));
 		}
+		else {
+			Logger::log "Closing connection";
+			$connection->finish;
+		}
+	});
 
-		$this_connection->on(
-			each_message => sub {
-				my ($connection, $message) = @_;
-				my $decoded;
-				my $status;
+	$conn->send($json->encode($player->handle->message));
+});
 
-				try {
-					$decoded = $json->decode($message->{body});
-					$status = $player->handle($decoded);
-				} catch ($error) {
-					Logger::log 'Exception occured: ' . $error;
-					$condvar->send;
-				}
-
-				if ($status->playing) {
-					Logger::log $status->log;
-					$connection->send($json->encode($status->message));
-				}
-				else {
-					Logger::log "Closing connection";
-					$connection->close;
-					$condvar->send;
-				}
-			}
-		);
-
-		$this_connection->send($json->encode($player->handle->message));
-	}
-);
-
-$condvar->recv;
+Mojo::IOLoop->start unless Mojo::IOLoop->is_running;
 Logger::log "Finished";

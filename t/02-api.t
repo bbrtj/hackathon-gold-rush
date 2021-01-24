@@ -1,12 +1,12 @@
 use Modern::Perl "2018";
 use Test::More;
 use Test::Deep;
-use KelpX::Symbiosis::Test;
+use Kelp::Test;
 use HTTP::Request::Common;
 use GoldRush;
 use Crypt::Misc qw(is_v4uuid);
 
-my $t = KelpX::Symbiosis::Test->wrap(app => GoldRush->new);
+my $t = Kelp::Test->new(app => GoldRush->new);
 
 $t->request(GET '/')
 	->code_is(200)

@@ -9,17 +9,9 @@ requires "Syntax::Keyword::Try";
 requires "Type::Tiny";
 
 requires "Kelp", '1.05';
-
-requires "Kelp::Module::WebSocket::AnyEvent";
-requires "Kelp::Module::Symbiosis";
-requires "Twiggy";
+requires "Mojolicious";
 
 requires "CryptX";
 requires "Quantum::Superpositions::Lazy";
 
 recommends "Cpanel::JSON::XS";
-
-on test => sub {
-	requires "Test::TCP";
-	requires "AnyEvent::WebSocket::Client";
-};
