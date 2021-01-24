@@ -101,6 +101,8 @@ always contains a C<status> field, which is a true value in case of success and
 a false value in case of an error. Additionally, a C<result> field is available
 upon success (returned value), and an C<error> field upon error (error code).
 
+API will be available on port 5000.
+
 =over
 
 =item
@@ -174,11 +176,29 @@ population between the settlements. Returns ETA
 
 API is handy to kickstart a communication layer in the early phase, however
 once the algorithm is playing for hundreds of turns it is recommended to use
-the WebSocket connection. This API exposes the same format as stated above with
-just a single difference - actions which require the C<player> field does not
-accept it explicitly, but instead the C<new_player> action causes the websocket
-connection to hold the player state.
+the WebSocket connection.
 
-It is recommended to execute the orders synchronously by waiting for a response
-before executing the next order. Order responses contain no identifiers, so
-there will be no way to tell from which order they come otherwise.
+Websocket will be available on port 3000.
+
+It exposes the same format as stated above with a couple of differences:
+
+=over
+
+=item
+
+actions which require the C<player> field does not accept it explicitly, but
+instead the C<new_player> action causes the websocket connection to hold the
+player state.
+
+=item
+
+most requests will be queued, so websocket server won't return any single
+action results. An exception to this rule is the C<get_state> action, which
+will cause websocket server to send all the queued actions to the game server
+and return the simulation state after processing all the commands in the order
+they were issued.
+
+=back
+
+WebSocket expects the players to execute the
+orders synchronously by waiting for a response before executing the next order.

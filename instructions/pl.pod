@@ -101,6 +101,8 @@ zawsze pole C<status> będące wartością prawdziwą w przypadku powodzenia i f
 w przypadku błędu. Dodatkowo pole C<result> informuje o wartości zwróconej z akcji
 przy powodzeniu, a pole C<error> informuje o kodzie błędu.
 
+API jest dostępne na porcie 5000.
+
 =over
 
 =item
@@ -172,11 +174,28 @@ transport ludności. Zwraca czas wykonania
 
 API jest przydatne we wczesnej fazie (pozwala na łatwiejsze stworzenie
 odpowiedniej warstwy komunikacji), jednak w przypadku algorytmu przechodzącego
-setki tur zaleca się użycie połączenia przez Websocket. Takie połączenie
-pozwala na wykonanie wszystkich akcji API w takim samym formacie z jedną
-różnicą - w akcjach, w które wymagają pola C<player> nie jest ono potrzebne, za
-to akcja C<new_player> powoduje zapisanie stanu gracza dla danego połączenia.
+setki tur zaleca się użycie połączenia przez Websocket.
 
-Zaleca się wykonywanie rozkazów sychronicznie poprzez czekanie na odpowiedź
-przed wykonaniem nowego rozkazu. Odpowiedzi na rozkazy nie zawierają
-identyfikatorów, więc nie da się inaczej określić na który rozkaz odpowiadają.
+WebSocket jest dostępny na porcie 3000.
+
+Udostępnia on taki sam format jak ten podany powyżej, z kilkoma różnicami:
+
+=over
+
+=item
+
+akcje, które wymagają pola C<player> nie akceptują go jawnie, lecz zamiast tego
+akcja C<new_player> zmusza połączenie websocket do przechowywania stanu gracza.
+
+=item
+
+większość zapytań będzie kolejkowana, więc serwer websocket nie zwróci żadnych
+danych zwrotnych z pojedynczych akcji. Wyjątkiem od tej reguły jest akcja
+C<get_state>, która spowoduje wysłanie wszystkich zakolejkowanych akcji do
+serwera oraz zwrócenie stanu symulacji po przeprocesowaniu wszystkich komend w
+kolejności w jakiej zostały wydane.
+
+=back
+
+WebSocket wymaga od graczy synchronicznego wykonywania rozkazów poprzez
+czekanie na odpowiedź przed wydaniem kolejnego rozkazu.
