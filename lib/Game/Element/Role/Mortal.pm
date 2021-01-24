@@ -27,7 +27,8 @@ before end_of_turn => sub {
 	}
 };
 
-sub set_dead {
+sub set_dead
+{
 	my ($self, $instance) = @_;
 	$self->dead(1);
 }

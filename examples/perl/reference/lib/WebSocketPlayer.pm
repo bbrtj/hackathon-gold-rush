@@ -11,7 +11,7 @@ use Logger;
 
 has 'phase' => (
 	is => 'rw',
-	isa => ConsumerOf[Role::Phase::],
+	isa => ConsumerOf [Role::Phase::],
 	default => sub { Phase::Setup->new(player => shift) },
 );
 
@@ -32,21 +32,24 @@ has 'last_message' => (
 	isa => HashRef,
 );
 
-sub set_state {
+sub set_state
+{
 	my ($self, $state) = @_;
 
 	Logger::log('Now on turn ' . $state->{turn});
 	$self->state($state);
 }
 
-sub say_hello {
+sub say_hello
+{
 	return {
 		'type' => 'new_player',
 		'name' => 'Perl reference implementation',
-	}
+	};
 }
 
-sub _handle_last {
+sub _handle_last
+{
 	my ($self, $message) = @_;
 
 	# player initialization
@@ -60,8 +63,8 @@ sub _handle_last {
 		Logger::log 'Stashed ' . $self->state->{gold} . ' gold pieces total';
 		Logger::log 'Built ' . (scalar $self->state->{settlements}->@*) . ' settlements';
 		Logger::log 'Discovered ' . (scalar $self->state->{mines}->@*) . ' mines';
-		Logger::log 'Total population ' . (sum0 map { $_->{population} } $self->state->{settlements}->@*);
-		Logger::log 'Total active miners ' . (sum0 map { $_->{population} } $self->state->{mines}->@*);
+		Logger::log 'Total population ' . (sum0(map { $_->{population} } $self->state->{settlements}->@*));
+		Logger::log 'Total active miners ' . (sum0(map { $_->{population} } $self->state->{mines}->@*));
 
 		return WebSocketStatus->new(
 			playing => 0
@@ -70,12 +73,13 @@ sub _handle_last {
 
 	# an error
 	if (!$message->{status}) {
-		use Data::Dumper; die Dumper($message);
+		use Data::Dumper;
+		die Dumper($message);
 	}
 
 	my %significant = (
 		get_state => sub {
-			$self->set_state($message->{result})
+			$self->set_state($message->{result});
 		}
 	);
 
@@ -87,9 +91,9 @@ sub _handle_last {
 	return;
 }
 
-sub _handle {
+sub _handle
+{
 	my ($self) = @_;
-
 
 	if ($self->queue->@*) {
 		return shift $self->queue->@*;
@@ -104,7 +108,8 @@ sub _handle {
 	return $self->_handle;
 }
 
-sub handle {
+sub handle
+{
 	my ($self, $message) = @_;
 	my $answer;
 

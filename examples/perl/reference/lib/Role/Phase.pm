@@ -78,7 +78,7 @@ around 'handle' => sub {
 	}
 
 	# two stages: recruitment and orders. We end turn after orders
-	if(!$self->is_recruitment) {
+	if (!$self->is_recruitment) {
 		Bot::Actions->end_turn($self);
 	}
 
@@ -87,7 +87,8 @@ around 'handle' => sub {
 	return $self->current_queue->@*;
 };
 
-sub add_order {
+sub add_order
+{
 	my ($self, $type, %params) = @_;
 
 	push $self->current_queue->@*, {
@@ -96,7 +97,8 @@ sub add_order {
 	};
 }
 
-sub next {
+sub next
+{
 	my ($self) = @_;
 
 	Logger::log('Moving to phase ' . $self->next_phase);

@@ -4,7 +4,8 @@ use Modern::Perl "2018";
 use Bot::Util;
 use List::Util qw(first max);
 
-sub train_explorers {
+sub train_explorers
+{
 	my ($self, $phase) = @_;
 
 	if (my $settlement = Bot::Util->can_train_explorer($phase)) {
@@ -13,7 +14,8 @@ sub train_explorers {
 	}
 }
 
-sub send_explorers {
+sub send_explorers
+{
 	my ($self, $phase) = @_;
 
 	if (my @explorers = Bot::Util->can_send_explorers($phase)) {
@@ -25,6 +27,7 @@ sub send_explorers {
 			}
 
 			if (!$phase->already_settling && $phase->mines->@* > 0) {
+
 				# settling
 				my $pos = $farthest_settlement + Bot::Util->SETTLEMENT_MINIMUM_DISTANCE;
 
@@ -51,7 +54,8 @@ sub send_explorers {
 	}
 }
 
-sub train_workers {
+sub train_workers
+{
 	my ($self, $phase) = @_;
 
 	if (my @settlements = Bot::Util->can_train_workers($phase)) {
@@ -62,7 +66,8 @@ sub train_workers {
 	}
 }
 
-sub send_workers {
+sub send_workers
+{
 	my ($self, $phase) = @_;
 
 	if (my @workers = Bot::Util->can_send_workers($phase)) {
@@ -81,15 +86,17 @@ sub send_workers {
 	}
 }
 
-sub transport_population {
+sub transport_population
+{
 	my ($self, $phase) = @_;
 
 	if (my @settlements = Bot::Util->should_transport_population($phase)) {
 		$phase->already_settling(0);
 		for my $settlement (@settlements) {
 			my $from = first {
-				$_->{population} > Bot::Util->POP_GROW_THRESHOLD
-			} $phase->settlements->@*;
+				$_->{population} > Bot::Util->POP_GROW_THRESHOLD;
+				}
+				$phase->settlements->@*;
 
 			if (defined $from) {
 				$phase->add_order(
@@ -105,7 +112,8 @@ sub transport_population {
 	}
 }
 
-sub end_turn {
+sub end_turn
+{
 	my ($self, $phase) = @_;
 
 	$phase->add_order('end_turn');

@@ -93,7 +93,7 @@ try {
 		}
 	}
 
-	while(1) {
+	while (1) {
 		Game::Engine::end_turn($player);
 		$state = Game::Engine::get_state($player);
 		$explorer = get_explorer $state, $explorer_id;

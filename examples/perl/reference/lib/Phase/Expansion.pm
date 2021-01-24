@@ -9,20 +9,23 @@ use Bot::Util;
 
 use constant next_phase => Phase::Hoarding::;
 
-sub handle {
+sub handle
+{
 	my ($self) = @_;
 
 	if ($self->is_recruitment) {
 		Bot::Actions->transport_population($self);
 		Bot::Actions->train_explorers($self);
 		Bot::Actions->train_workers($self);
-	} else {
+	}
+	else {
 		Bot::Actions->send_explorers($self);
 		Bot::Actions->send_workers($self);
 	}
 }
 
-sub ended {
+sub ended
+{
 	my ($self) = @_;
 
 	# we should end this phase once we're close to the end

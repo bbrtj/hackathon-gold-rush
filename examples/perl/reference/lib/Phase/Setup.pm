@@ -10,19 +10,22 @@ use Logger;
 
 use constant next_phase => Phase::Growing::;
 
-sub handle {
+sub handle
+{
 	my ($self) = @_;
 
 	if ($self->is_recruitment) {
 		Bot::Actions->train_explorers($self);
 		Bot::Actions->train_workers($self);
-	} else {
+	}
+	else {
 		Bot::Actions->send_explorers($self);
 		Bot::Actions->send_workers($self);
 	}
 }
 
-sub ended {
+sub ended
+{
 	my ($self) = @_;
 
 	# we can end this phase when we mine gold

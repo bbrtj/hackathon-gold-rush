@@ -10,23 +10,28 @@ use Phase::Expansion;
 
 use constant next_phase => Phase::Expansion::;
 
-sub handle {
+sub handle
+{
 	my ($self) = @_;
 
 	if ($self->is_recruitment) {
 		Bot::Actions->transport_population($self);
-	} else {
+	}
+	else {
 		Bot::Actions->send_explorers($self);
 		Bot::Actions->send_workers($self);
 	}
 }
 
-sub ended {
+sub ended
+{
 	my ($self) = @_;
 
-	my $total_population = sum map {
-		$_->{population}
-	} $self->player->state->{settlements}->@*;
+	my $total_population = sum map
+	{
+		$_->{population};
+	}
+	$self->player->state->{settlements}->@*;
 
 	# we can end this phase when we grow a bit
 	return $total_population > 40;

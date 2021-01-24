@@ -5,21 +5,24 @@ use Moo;
 
 with qw(Role::Phase);
 
-sub handle {
+sub handle
+{
 	my ($self) = @_;
 
 	if ($self->is_recruitment) {
 		Bot::Actions->transport_population($self);
-	} else {
+	}
+	else {
 		Bot::Actions->send_explorers($self);
 		Bot::Actions->send_workers($self);
 	}
 }
 
-sub ended {
+sub ended
+{
 	my ($self) = @_;
 
-	return; # last phase
+	return;    # last phase
 }
 
 1;

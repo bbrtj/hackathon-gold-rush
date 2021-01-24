@@ -12,40 +12,46 @@ websocket '/' => sub {
 	my ($mojo) = @_;
 
 	my $ua = Mojo::UserAgent->new;
-	$mojo->on(json => sub {
-		my ($c, $hash) = @_;
+	$mojo->on(
+		json => sub {
+			my ($c, $hash) = @_;
 
-		my $type = delete $hash->{type};
+			my $type = delete $hash->{type};
 
-		if ($type ne 'new_player') {
-			$hash->{player} = $map{$c->tx->connection};
-		}
-
-		my $res = $ua->get(APP_LOCATION . "/$type", form => $hash)->res;
-		if ($res->error || $res->is_error) {
-			if ($res->body) {
-				$c->send({text => $res->body});
+			if ($type ne 'new_player') {
+				$hash->{player} = $map{$c->tx->connection};
 			}
-			elsif (!$res->code) {
-				$c->send({json => {
-					status => \0,
-					error => "Game server is offline",
-				}});
-			}
-			$c->finish;
-		}
-		else {
-			my $body = $res->body;
-			if ($type eq 'new_player') {
-				my $res_data = decode_json $body;
-				if ($res_data->{status}) {
-					$map{$c->tx->connection} = $res_data->{result};
+
+			my $res = $ua->get(APP_LOCATION . "/$type", form => $hash)->res;
+			if ($res->error || $res->is_error) {
+				if ($res->body) {
+					$c->send({text => $res->body});
 				}
+				elsif (!$res->code) {
+					$c->send(
+						{
+							json => {
+								status => \0,
+								error => "Game server is offline",
+							}
+						}
+					);
+				}
+				$c->finish;
 			}
+			else {
+				my $body = $res->body;
+				if ($type eq 'new_player') {
+					my $res_data = decode_json $body;
+					if ($res_data->{status}) {
+						$map{$c->tx->connection} = $res_data->{result};
+					}
+				}
 
-			$c->send({text => $body});
+				$c->send({text => $body});
+			}
 		}
-	});
+	);
 };
 
 app->start;

@@ -2,7 +2,7 @@
 	modules => [
 		qw(
 			JSON
-		)
+			)
 	],
 
 	middleware => [

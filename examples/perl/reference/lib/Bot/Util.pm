@@ -17,14 +17,17 @@ use constant {
 	DESIRED_EXPLORERS_NUMBER => 2,
 };
 
-sub can_train_explorer {
+sub can_train_explorer
+{
 	my ($self, $phase) = @_;
 
 	my $settlement = first {
-		$_->{population} > TRAIN_EXPLORER_POP_THRESHOLD
-	} $phase->settlements->@*;
+		$_->{population} > TRAIN_EXPLORER_POP_THRESHOLD;
+		}
+		$phase->settlements->@*;
 
-	my $working = sum map { $_->{population} } $phase->mines->@*;
+	my $working = sum map { $_->{population} }
+	$phase->mines->@*;
 
 	# care not to block ourselves from gaining gold
 	if (
@@ -32,14 +35,16 @@ sub can_train_explorer {
 		&& defined $settlement
 		&& ($phase->workers->@* > 1 || $working > 1 || $phase->gold >= EXPLORER_GOLD + WORKER_GOLD)
 		&& $phase->explorers->@* <= DESIRED_EXPLORERS_NUMBER
-	) {
+		)
+	{
 		return $settlement;
 	}
 
 	return;
 }
 
-sub can_send_explorers {
+sub can_send_explorers
+{
 	my ($self, $phase) = @_;
 
 	my @idle = grep {
@@ -50,7 +55,8 @@ sub can_send_explorers {
 	return @idle;
 }
 
-sub can_train_workers {
+sub can_train_workers
+{
 	my ($self, $phase) = @_;
 
 	return unless $phase->mines->@*;
@@ -69,7 +75,8 @@ sub can_train_workers {
 	return @ret;
 }
 
-sub can_send_workers {
+sub can_send_workers
+{
 	my ($self, $phase) = @_;
 
 	my @idle = grep {
@@ -80,7 +87,8 @@ sub can_send_workers {
 	return @idle;
 }
 
-sub should_transport_population {
+sub should_transport_population
+{
 	my ($self, $phase) = @_;
 
 	# careful not to transfer everyone when the transport is in progress

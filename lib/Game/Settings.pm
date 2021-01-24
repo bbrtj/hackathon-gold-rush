@@ -47,5 +47,6 @@ our $map = sub {
 		push @positions, superpos($start + 1 .. $start + $deposit_every);
 	}
 	return [collapse @positions];
-}->();
+	}
+	->();
 

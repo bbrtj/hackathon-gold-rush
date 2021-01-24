@@ -30,36 +30,41 @@ my $player = WebSocketPlayer->new;
 my $json = JSON()->new;
 my $tx = $ua->build_websocket_tx("ws://$host");
 
-$ua->start($tx => sub {
-	my ($ua, $conn) = @_;
-	Logger::log 'WebSocket handshake failed!' and return
-		unless $conn->is_websocket;
+$ua->start(
+	$tx => sub {
+		my ($ua, $conn) = @_;
+		Logger::log 'WebSocket handshake failed!' and return
+			unless $conn->is_websocket;
 
-	$conn->on(message => sub {
-		my ($connection, $message) = @_;
-		my $decoded;
-		my $status;
+		$conn->on(
+			message => sub {
+				my ($connection, $message) = @_;
+				my $decoded;
+				my $status;
 
-		try {
-			$decoded = $json->decode($message);
-			$status = $player->handle($decoded);
-		} catch ($error) {
-			Logger::log 'Exception occured: ' . $error;
-			$connection->finish;
-		}
+				try {
+					$decoded = $json->decode($message);
+					$status = $player->handle($decoded);
+				}
+				catch ($error) {
+					Logger::log 'Exception occured: ' . $error;
+					$connection->finish;
+				}
 
-		if ($status && $status->playing) {
-			Logger::log $status->log;
-			$connection->send($json->encode($status->message));
-		}
-		else {
-			Logger::log "Closing connection";
-			$connection->finish;
-		}
-	});
+				if ($status && $status->playing) {
+					Logger::log $status->log;
+					$connection->send($json->encode($status->message));
+				}
+				else {
+					Logger::log "Closing connection";
+					$connection->finish;
+				}
+			}
+		);
 
-	$conn->send($json->encode($player->handle->message));
-});
+		$conn->send($json->encode($player->handle->message));
+	}
+);
 
 Mojo::IOLoop->start unless Mojo::IOLoop->is_running;
 Logger::log "Finished";
