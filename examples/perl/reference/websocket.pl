@@ -8,7 +8,7 @@ use JSON::MaybeXS;
 
 use File::Basename;
 use lib dirname(__FILE__) . '/lib';
-use WebSocketPlayer;
+use Bot;
 use Logger;
 
 ###################### WEBSOCKET REFERENCE IMPLEMENTATION #####################
@@ -26,7 +26,7 @@ my $ua = Mojo::UserAgent->new;
 
 Logger::log "Connecting to $host";
 
-my $player = WebSocketPlayer->new;
+my $player = Bot->new;
 my $json = JSON()->new;
 my $tx = $ua->build_websocket_tx("ws://$host");
 

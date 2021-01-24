@@ -1,10 +1,10 @@
-package WebSocketPlayer;
+package Bot;
 
 use Modern::Perl "2018";
 use Moo;
 use Types::Standard qw(ConsumerOf Int HashRef Str ArrayRef);
 use Phase::Setup;
-use WebSocketStatus;
+use Status;
 use Scalar::Util qw(blessed);
 use List::Util qw(sum0);
 use Logger;
@@ -66,7 +66,7 @@ sub _handle_last
 		Logger::log 'Total population ' . (sum0(map { $_->{population} } $self->state->{settlements}->@*));
 		Logger::log 'Total active miners ' . (sum0(map { $_->{population} } $self->state->{mines}->@*));
 
-		return WebSocketStatus->new(
+		return Status->new(
 			playing => 0
 		);
 	}
@@ -118,9 +118,9 @@ sub handle
 	# figure out next message, if we don't have any
 	$answer //= $self->_handle;
 
-	# convert to WebSocketStatus
+	# convert to Status
 	if (!blessed $answer) {
-		$answer = WebSocketStatus->new(
+		$answer = Status->new(
 			message => $answer
 		);
 	}

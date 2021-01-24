@@ -1,4 +1,4 @@
-package WebSocketStatus;
+package Status;
 
 use Modern::Perl "2018";
 use Moo;

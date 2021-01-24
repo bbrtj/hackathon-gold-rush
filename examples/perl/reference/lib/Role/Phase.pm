@@ -8,7 +8,7 @@ use Bot::Actions;
 
 has 'player' => (
 	is => 'ro',
-	isa => InstanceOf [WebSocketPlayer::],
+	isa => InstanceOf [Bot::],
 	weak_ref => 1,
 );
 
