@@ -11,7 +11,7 @@ use aliased "Game::Element::Mine" => "Mine";
 use aliased "Game::Element::Transport" => "Transport";
 use aliased "Game::Helpers::HashCollection" => "Collection";
 use Game::Settings;
-use JSON qw(to_json);
+use JSON::MaybeXS qw(to_json);
 
 has "player_name" => (
 	is => "ro",
