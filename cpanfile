@@ -11,7 +11,8 @@ requires "Type::Tiny";
 requires "Kelp", '1.05';
 requires "Mojolicious";
 
-requires "CryptX";
+requires "Data::Entropy";
+requires "UUID::Tiny";
 requires "Quantum::Superpositions::Lazy";
 
 recommends "Cpanel::JSON::XS";

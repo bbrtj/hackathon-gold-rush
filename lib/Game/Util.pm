@@ -3,8 +3,8 @@ package Game::Util;
 use Modern::Perl "2018";
 use Exporter qw(import);
 use Digest::SHA qw(sha1_hex);
-use Crypt::PRNG::Fortuna qw(rand);
-use Crypt::Misc qw(random_v4uuid);
+use Data::Entropy::Algorithms qw(rand_flt);
+use UUID::Tiny ':std';
 
 use Types::Common::Numeric qw(PositiveInt PositiveOrZeroInt);
 
@@ -16,7 +16,7 @@ our @EXPORT_OK = qw(
 
 sub generate_id
 {
-	random_v4uuid;
+	create_uuid_as_string(UUID_V4);
 }
 
 sub parameter_checks
@@ -33,7 +33,7 @@ sub parameter_checks
 
 sub random
 {
-	rand;
+	rand_flt 0, 1;
 }
 
 1;

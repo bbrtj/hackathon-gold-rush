@@ -4,7 +4,7 @@ use Test::Deep;
 use Kelp::Test;
 use HTTP::Request::Common;
 use GoldRush;
-use Crypt::Misc qw(is_v4uuid);
+use UUID::Tiny ':std';
 
 my $t = Kelp::Test->new(app => GoldRush->new);
 
@@ -33,7 +33,7 @@ $t->request(GET '/new_player?name=test')
 			result => code(
 				sub {
 					$uuid = shift;
-					is_v4uuid($uuid)
+					is_uuid_string($uuid)
 					?
 					(1)
 					:
