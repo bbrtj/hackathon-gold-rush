@@ -21,37 +21,37 @@ of turns win.
 *Recommended skill level:* Intermediate. Likely too hard for beginners to have
 fun.
 
-*Recommended solving time:* no less than three to four hours, as this is the
-time it took the author to write the reference perl bot implementation. Since
-the goal is not a simple matter of solving a puzzle, it can be back and forth
-battle who has the better algorithm with live preview of current leaders.
+*Recommended solving time:* no less than three hours for one person, as this is
+the time it took the author to write the reference perl bot implementation.
+Since the goal is not a simple matter of solving a puzzle, it can be back and
+forth battle who has the better algorithm with live preview of current leaders.
 
-### Configuration
-
-Either Carton: `carton install`
-
-or cpanm: `cpanm --installdeps .`
-
-*Note: Carton is a Perl module dependency manager. If you choose to use it, all
-of the other commands will have to start with `carton exec`.*
-
-### Testing
-
-`prove -l` will assert that the installation runs correctly.
-
-### Running
-
-`plackup -s Twiggy runner.psgi` will run the API/websocket server.
-
-### Instructions
+### Player instructions
 
 See instructions/lang.pod for game reference. Can do it in
 command line with command: `pod2text instructions/lang.pod`.
 
-### Game bot implementations
+### Existing implementations
 
 The `examples` directory contains approaches to playing the game.
 Caution: _SPOILERS_
+
+### Running (with Docker)
+
+`docker-compose up`
+
+### Running (without Docker)
+
+*Note: perl 5.28 with Carton required. Carton is a Perl module dependency
+manager. You will need to have it installed prior to the script below: cpan
+Carton*
+
+```
+carton install                              # install the dependencies
+carton exec prove -l                        # test the installation
+carton exec plackup -p 5000 -D runner.psgi  # daemonize the game server
+carton exec ./websocket prefork             # run the websocket server
+```
 
 ### Scores
 
@@ -62,4 +62,3 @@ represents states of the game at different points in time (every 5 rounds).
 ### TODO
 
 - Interactive scoreboard as a web page, with charts and stuff
-- Docker image for easier setup
