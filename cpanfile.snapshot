@@ -720,6 +720,57 @@ DISTRIBUTIONS
       JSON::PP 2.27300
       Scalar::Util 0
       perl 5.006
+  Kelp-1.05
+    pathname: B/BR/BRTASTIC/Kelp-1.05.tar.gz
+    provides:
+      Kelp 1.05
+      Kelp::Base undef
+      Kelp::Exception undef
+      Kelp::Generator undef
+      Kelp::Less undef
+      Kelp::Module undef
+      Kelp::Module::Config undef
+      Kelp::Module::Config::Less undef
+      Kelp::Module::Config::Null undef
+      Kelp::Module::JSON undef
+      Kelp::Module::Logger undef
+      Kelp::Module::Logger::Simple undef
+      Kelp::Module::Null undef
+      Kelp::Module::Routes undef
+      Kelp::Module::Template undef
+      Kelp::Module::Template::Null undef
+      Kelp::Request undef
+      Kelp::Response undef
+      Kelp::Routes undef
+      Kelp::Routes::Controller undef
+      Kelp::Routes::Pattern undef
+      Kelp::Template undef
+      Kelp::Test undef
+    requirements:
+      Carp 0
+      Class::Inspector 0
+      Data::Dumper 0
+      Encode 0
+      ExtUtils::MakeMaker 0
+      FindBin 0
+      Getopt::Long 0
+      HTTP::Cookies 0
+      JSON::MaybeXS 0
+      Log::Dispatch 0
+      Path::Tiny 0
+      Plack::Test 0
+      Plack::Util 0
+      Scalar::Util 0
+      Sys::Hostname 0
+      Template::Tiny 0
+      Test::Deep 0
+      Test::More 0
+      Try::Tiny 0
+      feature 0
+      namespace::autoclean 0
+      perl 5.010000
+      strict 0
+      warnings 0
   Kelp-Module-Symbiosis-1.11
     pathname: B/BR/BRTASTIC/Kelp-Module-Symbiosis-1.11.tar.gz
     provides:

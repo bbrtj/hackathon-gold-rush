@@ -1,8 +1,3 @@
-use File::Basename;
-
-my $current = dirname(__FILE__);
-my $current_uri = 'file://' . $current;
-
 requires "Moo";
 requires "MooX";
 requires "MooX::HandlesVia";
@@ -13,8 +8,7 @@ requires "aliased";
 requires "Syntax::Keyword::Try";
 requires "Type::Tiny";
 
-requires "Kelp", 0,
-	url => "$current_uri/Kelp-1.04.tar.gz";
+requires "Kelp", '1.05';
 
 requires "Kelp::Module::WebSocket::AnyEvent";
 requires "Kelp::Module::Symbiosis";
