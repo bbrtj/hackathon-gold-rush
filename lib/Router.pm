@@ -2,6 +2,7 @@ package Router;
 
 use Modern::Perl "2018";
 use Game::Engine;
+use Game::Scores;
 use ApiInterface qw(api_call assert_params trap_errors);
 
 my %types = (
@@ -27,7 +28,7 @@ sub install_routes
 	for my $type (keys %types) {
 		my ($code_ref, $params_ref) = $types{$type}->@*;
 		$r->add(
-			'/' . $type => {
+			'/api/' . $type => {
 				to => api_call sub {
 					my ($params) = @_;
 					return $code_ref->(assert_params $params, @{$params_ref});
@@ -37,7 +38,7 @@ sub install_routes
 	}
 
 	$r->add(
-		'/multi' => sub {
+		'/api/multi' => sub {
 			my ($kelp) = @_;
 
 			return trap_errors sub {
@@ -69,9 +70,9 @@ sub install_routes
 	);
 
 	$r->add(
-		'/results' => sub {
-
-			# TODO
+		'/api/scores' => sub {
+			my ($kelp) = @_;
+			return Game::Scores->get_scores;
 		}
 	);
 

@@ -101,7 +101,7 @@ zawsze pole C<status> będące wartością prawdziwą w przypadku powodzenia i f
 w przypadku błędu. Dodatkowo pole C<result> informuje o wartości zwróconej z akcji
 przy powodzeniu, a pole C<error> informuje o kodzie błędu.
 
-API jest dostępne na porcie 5000.
+API jest dostępne na porcie 5000. Wszystkie akcje powinny być rozpoczęte od C</api/>.
 
 =over
 

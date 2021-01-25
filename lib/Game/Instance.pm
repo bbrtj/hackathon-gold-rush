@@ -11,6 +11,7 @@ use aliased "Game::Element::Mine" => "Mine";
 use aliased "Game::Element::Transport" => "Transport";
 use aliased "Game::Helpers::HashCollection" => "Collection";
 use Game::Settings;
+use Game::Scores;
 use JSON::MaybeXS qw(to_json);
 
 has "player_name" => (
@@ -254,20 +255,14 @@ sub serialize
 	# number of records is too large
 	$base->{workers} = [grep { !$_->{working} } $base->{workers}->@*];
 
-	if (($base->{turn} + 5) % 5 == 0) {
-		$self->save_score($base);
+	if ($base->{turn} > 0 && $base->{turn} % 10 == 0) {
+		Game::Scores->add_score($self->player_name, $base);
+	}
+	if ($base->{turn} >= $Game::Settings::game_length) {
+		Game::Scores->save_score($self->player_name);
 	}
 
 	return $base;
-}
-
-sub save_score
-{
-	my ($self, $state) = @_;
-	my $state_json = to_json $state;
-	my $name = $self->player_name;
-	open my $file, ">>", "scores/$name";
-	print $file $state_json . "\n";
 }
 
 1;

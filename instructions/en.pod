@@ -101,7 +101,7 @@ always contains a C<status> field, which is a true value in case of success and
 a false value in case of an error. Additionally, a C<result> field is available
 upon success (returned value), and an C<error> field upon error (error code).
 
-API will be available on port 5000.
+API will be available on port 5000. All actions should be prepended with C</api/>.
 
 =over
 

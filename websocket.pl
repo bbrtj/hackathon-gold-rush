@@ -22,6 +22,7 @@ sub query_game_server
 	state $ua = Mojo::UserAgent->new;
 	my ($c, $type, $hash, $content_type) = @_;
 	$content_type //= 'form';
+	$type = "api/$type";
 
 	my $res = $ua->get("$app_location/$type", $content_type => $hash)->res;
 	if ($res->error || $res->is_error) {

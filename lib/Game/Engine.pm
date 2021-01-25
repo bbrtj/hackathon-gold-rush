@@ -2,6 +2,7 @@ package Game::Engine;
 
 use Modern::Perl "2018";
 use Game::Instance;
+use Game::Scores;
 use Game::Util qw(generate_id parameter_checks);
 
 my %state;
@@ -25,8 +26,8 @@ sub generate_player_hash
 	my ($name) = @_;
 	my $id = generate_id;
 	$state{$id} = Game::Instance->new(player_name => $name);
-	mkdir "scores";
-	open my $file, ">", "scores/$name";
+	Game::Scores->init_score($name);
+
 	return $id;
 }
 
