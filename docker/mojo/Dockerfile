@@ -1,4 +1,4 @@
-FROM brtastic/gold-rush-game:0.1
+FROM brtastic/gold-rush-game:0.2
 
 WORKDIR /opt/game
 

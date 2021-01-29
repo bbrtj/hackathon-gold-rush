@@ -3,7 +3,7 @@ version: '3'
 services:
     common:
         build: .
-        image: brtastic/gold-rush-game:0.1
+        image: brtastic/gold-rush-game:0.2
 
     mojo:
         depends_on:

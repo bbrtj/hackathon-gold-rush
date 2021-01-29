@@ -5,5 +5,4 @@ COPY . .
 
 RUN cpanm --notest Carton
 RUN carton install
-RUN carton exec prove -l
 
