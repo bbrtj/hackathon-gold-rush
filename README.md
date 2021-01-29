@@ -5,6 +5,8 @@ A game server for a hackathon-like event
 
 Gold Rush - mine gold and grow your empire!
 
+![scores](https://raw.githubusercontent.com/brtastic/hackathon-gold-rush/assets/scores.png)
+
 ### Description
 
 This is a Perl web game server that requires players to write programs in any
