@@ -56,9 +56,8 @@ carton exec ./websocket prefork             # run the websocket server
 ### Scores
 
 After playing the game, a `scores` directory will contain scores for players. A
-scores file contains multiple JSON documents, each in its own line. It
-represents states of the game at different points in time (every 5 rounds).
+scores file contains a single JSON document, with game state for every 10
+rounds.  The file is only present after the player has finished the game. A new
+score will override the last one.
 
-### TODO
-
-- Interactive scoreboard as a web page, with charts and stuff
+To view scores interactively, go to `address:5000/scores.html`

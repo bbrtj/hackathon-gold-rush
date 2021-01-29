@@ -1,0 +1,23 @@
+{
+	"name": "goldrush",
+	"repository": {
+		"type": "git",
+		"url": "git+ssh://git@github.com/brtastic/hackathon-gold-rush.git"
+	},
+	"devDependencies": {
+		"autoprefixer": "^10.2.3",
+		"axios": "^0.21.1",
+		"chart.js": "^2.9.4",
+		"css-loader": "^5.0.0",
+		"postcss": "^8.2.4",
+		"postcss-loader": "^4.2.0",
+		"style-loader": "^2.0.0",
+		"tailwindcss": "^2.0.2",
+		"vue": "^2.6.12",
+		"vue-loader": "^15.9.3",
+		"vue-template-compiler": "^2.6.12",
+		"webpack": "^4.44.2",
+		"webpack-cli": "^3.3.12"
+	},
+	"scripts": {}
+}

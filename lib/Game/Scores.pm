@@ -39,6 +39,8 @@ sub add_score
 {
 	my ($self, $name, $state) = @_;
 
+	return if $scores{$name}->@*
+		&& $scores{$name}[-1]{turn} eq $state->{turn};
 	push $scores{$name}->@*, {
 		turn => $state->{turn},
 		gold => $state->{gold},

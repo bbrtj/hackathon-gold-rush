@@ -1,5 +1,5 @@
 scores
-node_modules
+front/node_modules
 local
 .tidyallrc
 .perltidyrc
