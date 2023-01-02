@@ -9,7 +9,7 @@
 		"axios": "^0.21.2",
 		"chart.js": "^2.9.4",
 		"css-loader": "^5.0.0",
-		"postcss": "^8.2.13",
+		"postcss": "^8.2.14",
 		"postcss-loader": "^4.2.0",
 		"style-loader": "^2.0.0",
 		"tailwindcss": "^2.0.2",
