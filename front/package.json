@@ -10,7 +10,7 @@
 		"chart.js": "^2.9.4",
 		"css-loader": "^5.0.0",
 		"postcss": "^8.2.14",
-		"postcss-loader": "^4.2.0",
+		"postcss-loader": "^7.2.4",
 		"style-loader": "^2.0.0",
 		"tailwindcss": "^2.0.2",
 		"vue": "^2.6.12",
